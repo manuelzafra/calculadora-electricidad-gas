@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Ofertas - Electricidad y Gas</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
+.container{max-width:1600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+h1{text-align:center;color:#333;margin-bottom:10px;font-size:2em}
+.subtitle{text-align:center;color:#666;margin-bottom:30px;font-size:.9em}
+.info-text{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px;margin-bottom:20px;color:#856404;font-size:.9em}
+.tabs{display:flex;gap:10px;border-bottom:2px solid #e0e0e0;margin-bottom:30px}
+.tab{padding:15px 30px;cursor:pointer;background:#f5f5f5;border:none;border-radius:10px 10px 0 0;font-size:1.1em;font-weight:600;color:#666;transition:all .3s;border-bottom:3px solid transparent}
+.tab:hover{background:#e8e8e8}
+.tab.active{background:#fff;color:#667eea;border-bottom:3px solid #667eea}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.offers-container{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:30px}
+.offer-card{border:2px solid #e0e0e0;border-radius:15px;padding:25px;background:#fafafa}
+.offer-card.nueva{border-color:#2196F3;background:#f0f7ff}
+.offer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.offer-title{font-size:1.5em;font-weight:700;color:#333}
+.offer-card.nueva .offer-title{color:#2196F3}
+.reset-btn{padding:8px 16px;background:#ff5722;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.9em;font-weight:500;transition:background .3s}
+.reset-btn:hover{background:#e64a19}
+.company-name{background:linear-gradient(135deg,#ff9800 0%,#f57c00 100%);border:2px solid #e65100;border-radius:12px;padding:20px;margin-bottom:25px}
+.company-name label{color:#fff;font-weight:700;font-size:1.1em;display:block;margin-bottom:8px;text-shadow:1px 1px 2px rgba(0,0,0,.3)}
+.company-name input{border:2px solid #fff;background:#fff;font-weight:600}
+.form-group{margin-bottom:18px}
+.discount-group{background:#e3f2fd;border:2px solid #2196F3;border-radius:10px;padding:15px;margin-bottom:20px}
+.discount-group label{color:#1976D2;font-weight:700;font-size:1em}
+.power-group{background:#fff3e0;border:2px solid #ff9800;border-radius:10px;padding:15px;margin-bottom:20px}
+.power-group label{color:#e65100;font-weight:700;font-size:1em}
+.power-group-title{color:#e65100;font-weight:700;font-size:1.1em;margin-bottom:15px;display:block}
+.energy-group{background:#e8f5e9;border:2px solid #4caf50;border-radius:10px;padding:15px;margin-bottom:20px}
+.energy-group-title{color:#2e7d32;font-weight:700;font-size:1.1em;margin-bottom:15px;display:block}
+.paste-group{background:#f3e5f5;border:2px solid #9c27b0;border-radius:10px;padding:15px;margin-bottom:20px}
+.paste-group label{color:#7b1fa2;font-weight:700;font-size:1em;display:block;margin-bottom:8px}
+.two-cols{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.copy-btn{padding:6px 12px;background:#4caf50;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.85em;margin-top:10px;transition:background .3s}
+.copy-btn:hover{background:#45a049}
+label{display:block;margin-bottom:5px;color:#555;font-weight:500;font-size:.95em}
+input[type=text],input[type=number],textarea,select{width:100%;padding:10px 12px;border:2px solid #ddd;border-radius:8px;font-size:1em;transition:border-color .3s;font-family:inherit}
+input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{outline:0;border-color:#667eea}
+textarea{min-height:100px;resize:vertical}
+.unit-selector{display:flex;gap:10px;margin-top:8px}
+.unit-selector label{display:flex;align-items:center;gap:5px;font-weight:400;cursor:pointer}
+input[type=radio]{cursor:pointer}
+.calculate-btn{width:100%;padding:15px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:10px;font-size:1.1em;font-weight:700;cursor:pointer;margin-top:20px;transition:transform .2s}
+.calculate-btn:hover{transform:translateY(-2px)}
+.results{margin-top:40px;padding-top:30px;border-top:3px solid #e0e0e0}
+.results-header{text-align:center;font-size:1.8em;font-weight:700;margin-bottom:25px;color:#333}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px}
+.summary-card{padding:20px;border-radius:12px;text-align:center;background:linear-gradient(135deg,#9E9E9E 0%,#757575 100%);color:#fff}
+.summary-card.nueva{background:linear-gradient(135deg,#2196F3 0%,#1976D2 100%)}
+.summary-label{font-size:1.1em;margin-bottom:10px;opacity:.9}
+.summary-amount{font-size:2.5em;font-weight:700}
+.savings-grid-full{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:30px}
+.savings{text-align:center;padding:20px;border-radius:12px;transition:all .3s}
+.savings.positive{background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);color:#fff}
+.savings.negative{background:linear-gradient(135deg,#f44336 0%,#d32f2f 100%);color:#fff}
+.savings.neutral{background:linear-gradient(135deg,#9E9E9E 0%,#757575 100%);color:#fff}
+.savings-label{font-size:1em;margin-bottom:8px;opacity:.9}
+.savings-amount{font-size:2em;font-weight:700}
+.hidden{display:none}
+.historico{margin-top:40px;padding-top:30px;border-top:3px solid #e0e0e0}
+.historico-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.historico-title{font-size:1.8em;font-weight:700;color:#333}
+.historico-actions{display:flex;gap:10px}
+.btn-secondary{padding:10px 16px;background:#757575;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.9em;font-weight:500;transition:background .3s}
+.btn-secondary:hover{background:#616161}
+.btn-danger{background:#f44336}
+.btn-danger:hover{background:#d32f2f}
+.historico-list{display:grid;gap:15px}
+.historico-item{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:15px;align-items:center;padding:15px 20px;background:#f5f5f5;border-radius:10px;border-left:4px solid #2196F3}
+.historico-nombre{font-weight:600;color:#333;font-size:1.1em}
+.historico-total{text-align:center;font-size:1.2em;font-weight:700;color:#2196F3}
+.historico-ahorro{text-align:center;font-size:1.2em;font-weight:700}
+.historico-ahorro.positive{color:#4CAF50}
+.historico-ahorro.negative{color:#f44336}
+.historico-delete{padding:8px 12px;background:#f44336;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.85em;transition:background .3s}
+.historico-delete:hover{background:#d32f2f}
+.historico-empty{text-align:center;padding:40px;color:#999;font-style:italic}
+.file-input{display:none}
+small{display:block;margin-top:5px;color:#666;font-size:.85em}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>⚡🔥 Calculadora Ofertas - Electricidad y Gas</h1>
+<p class="subtitle">Compara T2, GAS RL1 y T3 - Pega datos de tus facturas</p>
+<div class="info-text">📊 T2 y GAS con histórico incluido | T3 comparación directa por mes</div>
+
+<div class="tabs">
+<button class="tab active" onclick="cambiarTab('t2')">⚡ ELECTRICIDAD T2</button>
+<button class="tab" onclick="cambiarTab('gas')">🔥 GAS RL1</button>
+<button class="tab" onclick="cambiarTab('t3')">⚡ ELECTRICIDAD T3</button>
+</div>
+
+<!-- TAB T2 -->
+<div id="tab-t2" class="tab-content active">
+<div class="offers-container">
+<div class="offer-card">
+<div class="offer-header"><div class="offer-title">🏠 Oferta Actual</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="t2-actual-nombre" placeholder="Ej: Iberdrola">
+</div>
+<div class="power-group">
+<span class="power-group-title">⚡ Potencia instalada y coste en €/kW</span>
+<div class="two-cols">
+<div>
+<div class="form-group"><label>Potencia Punta (kW)</label><input type="number" id="t2-actual-pot-punta-kw" step="0.001" placeholder="Ej: 2.2"></div>
+<div class="form-group"><label>Coste Punta</label><input type="number" id="t2-actual-pot-punta-precio" step="0.001" placeholder="Ej: 0.042">
+<div class="unit-selector"><label><input type="radio" name="t2-actual-unit-punta" value="dia" checked> €/kW/día</label><label><input type="radio" name="t2-actual-unit-punta" value="ano"> €/kW/año</label></div></div>
+</div>
+<div>
+<div class="form-group"><label>Potencia Valle (kW)</label><input type="number" id="t2-actual-pot-valle-kw" step="0.001" placeholder="Ej: 6.6"></div>
+<div class="form-group"><label>Coste Valle</label><input type="number" id="t2-actual-pot-valle-precio" step="0.001" placeholder="Ej: 0.018">
+<div class="unit-selector"><label><input type="radio" name="t2-actual-unit-valle" value="dia" checked> €/kW/día</label><label><input type="radio" name="t2-actual-unit-valle" value="ano"> €/kW/año</label></div></div>
+</div>
+</div>
+</div>
+<div class="energy-group">
+<span class="energy-group-title">💡 Coste en €/kWh de la energía consumida</span>
+<div class="form-group"><label>Precio Punta (€/kWh)</label><input type="number" id="t2-actual-punta" step="0.001" placeholder="Ej: 0.15"></div>
+<div class="form-group"><label>Precio Llano (€/kWh)</label><input type="number" id="t2-actual-llano" step="0.001" placeholder="Ej: 0.12"></div>
+<div class="form-group"><label>Precio Valle (€/kWh)</label><input type="number" id="t2-actual-valle" step="0.001" placeholder="Ej: 0.08"></div>
+<button class="copy-btn" onclick="copiarTarifaPlanaT2('actual')">📋 Copiar tarifa plana (mismo precio en los 3)</button>
+</div>
+<div class="discount-group">
+<label>💰 Descuento Energía (%)</label>
+<input type="number" id="t2-actual-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica a punta, llano y valle</small>
+</div>
+</div>
+<div class="offer-card nueva">
+<div class="offer-header"><div class="offer-title">✨ Oferta Nueva</div><button class="reset-btn" onclick="resetNuevaOferta()">🔄 Limpiar</button></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="t2-nueva-nombre" placeholder="Ej: Endesa">
+</div>
+<div class="power-group">
+<span class="power-group-title">⚡ Potencia instalada y coste en €/kW</span>
+<div class="two-cols">
+<div>
+<div class="form-group"><label>Potencia Punta (kW)</label><input type="number" id="t2-nueva-pot-punta-kw" step="0.001" placeholder="Ej: 2.2"></div>
+<div class="form-group"><label>Coste Punta</label><input type="number" id="t2-nueva-pot-punta-precio" step="0.001" placeholder="Ej: 0.040">
+<div class="unit-selector"><label><input type="radio" name="t2-nueva-unit-punta" value="dia" checked> €/kW/día</label><label><input type="radio" name="t2-nueva-unit-punta" value="ano"> €/kW/año</label></div></div>
+</div>
+<div>
+<div class="form-group"><label>Potencia Valle (kW)</label><input type="number" id="t2-nueva-pot-valle-kw" step="0.001" placeholder="Ej: 6.6"></div>
+<div class="form-group"><label>Coste Valle</label><input type="number" id="t2-nueva-pot-valle-precio" step="0.001" placeholder="Ej: 0.016">
+<div class="unit-selector"><label><input type="radio" name="t2-nueva-unit-valle" value="dia" checked> €/kW/día</label><label><input type="radio" name="t2-nueva-unit-valle" value="ano"> €/kW/año</label></div></div>
+</div>
+</div>
+</div>
+<div class="energy-group">
+<span class="energy-group-title">💡 Coste en €/kWh de la energía consumida</span>
+<div class="form-group"><label>Precio Punta (€/kWh)</label><input type="number" id="t2-nueva-punta" step="0.001" placeholder="Ej: 0.14"></div>
+<div class="form-group"><label>Precio Llano (€/kWh)</label><input type="number" id="t2-nueva-llano" step="0.001" placeholder="Ej: 0.11"></div>
+<div class="form-group"><label>Precio Valle (€/kWh)</label><input type="number" id="t2-nueva-valle" step="0.001" placeholder="Ej: 0.07"></div>
+<button class="copy-btn" onclick="copiarTarifaPlanaT2('nueva')">📋 Copiar tarifa plana (mismo precio en los 3)</button>
+</div>
+<div class="discount-group">
+<label>💰 Descuento Energía (%)</label>
+<input type="number" id="t2-nueva-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica a punta, llano y valle</small>
+</div>
+</div>
+</div>
+</div>
+
+<!-- TAB GAS -->
+<div id="tab-gas" class="tab-content">
+<div class="offers-container">
+<div class="offer-card">
+<div class="offer-header"><div class="offer-title">🏠 Oferta Actual</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="gas-actual-nombre" placeholder="Ej: Naturgy">
+</div>
+<div class="form-group"><label>Término Fijo</label><input type="number" id="gas-actual-fijo" step="0.001" placeholder="Ej: 0.35">
+<div class="unit-selector"><label><input type="radio" name="gas-actual-unit" value="dia" checked> €/día</label><label><input type="radio" name="gas-actual-unit" value="mes"> €/mes</label></div></div>
+<div class="form-group"><label>Término Variable (€/kWh)</label><input type="number" id="gas-actual-variable" step="0.001" placeholder="Ej: 0.05"></div>
+<div class="discount-group">
+<label>💰 Descuento Consumo (%)</label>
+<input type="number" id="gas-actual-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica al término variable</small>
+</div>
+</div>
+<div class="offer-card nueva">
+<div class="offer-header"><div class="offer-title">✨ Oferta Nueva</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="gas-nueva-nombre" placeholder="Ej: Repsol">
+</div>
+<div class="form-group"><label>Término Fijo</label><input type="number" id="gas-nueva-fijo" step="0.001" placeholder="Ej: 0.30">
+<div class="unit-selector"><label><input type="radio" name="gas-nueva-unit" value="dia" checked> €/día</label><label><input type="radio" name="gas-nueva-unit" value="mes"> €/mes</label></div></div>
+<div class="form-group"><label>Término Variable (€/kWh)</label><input type="number" id="gas-nueva-variable" step="0.001" placeholder="Ej: 0.045"></div>
+<div class="discount-group">
+<label>💰 Descuento Consumo (%)</label>
+<input type="number" id="gas-nueva-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica al término variable</small>
+</div>
+</div>
+</div>
+</div>
+
+<!-- TAB T3 -->
+<div id="tab-t3" class="tab-content">
+<div class="info-text">📌 T3: Comparación por mes seleccionado (sin histórico). Elige tu mes de mayor consumo para mejor estimación.</div>
+<div class="form-group" style="max-width:300px;margin:0 auto 20px">
+<label>📅 Mes de Comparación</label>
+<select id="t3-mes">
+<option value="0">Enero</option>
+<option value="1">Febrero</option>
+<option value="2">Marzo</option>
+<option value="3">Abril</option>
+<option value="4">Mayo</option>
+<option value="5">Junio</option>
+<option value="6">Julio</option>
+<option value="7">Agosto</option>
+<option value="8">Septiembre</option>
+<option value="9">Octubre</option>
+<option value="10">Noviembre</option>
+<option value="11">Diciembre</option>
+</select>
+</div>
+<div class="offers-container">
+<div class="offer-card">
+<div class="offer-header"><div class="offer-title">🏠 Oferta Actual</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="t3-actual-nombre" placeholder="Ej: Mi compañía">
+</div>
+<div class="paste-group">
+<label>📋 Pega Potencias de tu Factura (P1-P6)</label>
+<textarea id="t3-actual-potencias" placeholder="Pega aquí:
+Periodo P1 (01/12/2024 - 31/12/2024): 13,5000 kW * 0,042931 €/kW día * 31 días 17,97 €
+Periodo P2 (01/12/2024 - 31/12/2024): 16,4540 kW * 0,026084 €/kW día * 31 días 13,30 €
+..."></textarea>
+<small>Se extraerá kW y €/kW/día para P1-P6</small>
+</div>
+<div class="paste-group">
+<label>📋 Pega Precios Energía de tu Factura (P1-P6)</label>
+<textarea id="t3-actual-energia" placeholder="Pega aquí los precios de energía:
+Precio P1: 0,150 €/kWh
+Precio P2: 0,140 €/kWh
+..."></textarea>
+<small>Se extraerá precio en €/kWh para P1-P6</small>
+</div>
+<div class="discount-group">
+<label>💰 Descuento Energía (%)</label>
+<input type="number" id="t3-actual-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica a todos los precios de energía</small>
+</div>
+</div>
+<div class="offer-card nueva">
+<div class="offer-header"><div class="offer-title">✨ Oferta Nueva</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="t3-nueva-nombre" placeholder="Ej: Oferta T3">
+</div>
+<div class="paste-group">
+<label>📋 Pega Potencias de la Oferta (P1-P6)</label>
+<textarea id="t3-nueva-potencias" placeholder="Pega aquí los datos de potencia..."></textarea>
+<small>Se extraerá kW y €/kW/día para P1-P6</small>
+</div>
+<div class="paste-group">
+<label>📋 Pega Precios Energía de la Oferta (P1-P6)</label>
+<textarea id="t3-nueva-energia" placeholder="Pega aquí los precios de energía..."></textarea>
+<small>Se extraerá precio en €/kWh para P1-P6</small>
+</div>
+<div class="discount-group">
+<label>💰 Descuento Energía (%)</label>
+<input type="number" id="t3-nueva-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica a todos los precios de energía</small>
+</div>
+</div>
+</div>
+</div>
+
+<button class="calculate-btn" onclick="calcular()">📊 CALCULAR Y COMPARAR</button>
+
+<div id="results" class="results hidden"></div>
+<div id="historico" class="historico hidden">
+<div class="historico-header">
+<div class="historico-title">📜 Histórico</div>
+<div class="historico-actions">
+<button class="btn-secondary" onclick="exportarHistorico()">📥 Exportar</button>
+<button class="btn-secondary" onclick="document.getElementById('importFile').click()">📤 Importar</button>
+<button class="btn-secondary btn-danger" onclick="limpiarHistorico()">🗑️ Limpiar</button>
+</div>
+</div>
+<div id="historico-list" class="historico-list"><div class="historico-empty">No hay ofertas guardadas</div></div>
+</div>
+</div>
+<input type="file" id="importFile" class="file-input" accept=".json" onchange="importarHistorico(event)">
+
+<script>
+const consumosT2={meses:['Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],dias:[31,30,31,30,31,30,31,30,31,30],punta:[54,75,55,24,13,28,14,26,24,26],llano:[38,54,44,22,15,25,16,25,20,27],valle:[54,69,67,35,25,35,26,29,33,39]};
+const consumosGas={meses:['Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero'],dias:[28,31,30,31,30,31,31,30,31,30,31,31],kwh:[35,700,340,300,120,100,35,90,340,500,910,800]};
+const diasMes=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+let tabActual='t2';
+
+window.addEventListener('DOMContentLoaded',()=>{cargarDatos();mostrarHistorico()});
+
+function cambiarTab(tab){
+tabActual=tab;
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+const tabs=['t2','gas','t3'];
+const idx=tabs.indexOf(tab);
+document.querySelectorAll('.tab')[idx].classList.add('active');
+document.getElementById('tab-'+tab).classList.add('active');
+}
+
+function aplicarDescuento(precio,dto){return precio*(1-dto/100)}
+
+function parsePotencias(texto){
+const potencias={};
+const regex=/Periodo\s+P(\d)\s*[^:]*:\s*([\d,]+)\s*kW\s*\*\s*([\d,]+)\s*€\/kW\s*día/gi;
+let match;
+while((match=regex.exec(texto))!==null){
+const p='P'+match[1];
+potencias[p]={kw:parseFloat(match[2].replace(',','.')),precio:parseFloat(match[3].replace(',','.'))};
+}
+return potencias;
+}
+
+function parseEnergia(texto){
+const precios={};
+const regex=/P(?:recio\s+)?P(\d)[^\d]*([\d,]+)\s*€\/kWh/gi;
+let match;
+while((match=regex.exec(texto))!==null){
+const p='P'+match[1];
+precios[p]=parseFloat(match[2].replace(',','.'));
+}
+return precios;
+}
+
+function copiarTarifaPlanaT2(tipo){
+const precio=parseFloat(document.getElementById(`t2-${tipo}-punta`).value);
+if(isNaN(precio)){alert('⚠️ Introduce primero el precio punta');return}
+document.getElementById(`t2-${tipo}-llano`).value=precio;
+document.getElementById(`t2-${tipo}-valle`).value=precio;
+}
+
+function cargarDatos(){
+const d=localStorage.getItem('ofertaActual');
+if(!d)return;
+const datos=JSON.parse(d);
+if(datos.t2){
+document.getElementById('t2-actual-nombre').value=datos.t2.nombre||'';
+document.getElementById('t2-actual-pot-punta-kw').value=datos.t2.potPuntaKw||'';
+document.getElementById('t2-actual-pot-punta-precio').value=datos.t2.potPuntaPrecio||'';
+document.getElementById('t2-actual-pot-valle-kw').value=datos.t2.potValleKw||'';
+document.getElementById('t2-actual-pot-valle-precio').value=datos.t2.potVallePrecio||'';
+document.getElementById('t2-actual-punta').value=datos.t2.punta||'';
+document.getElementById('t2-actual-llano').value=datos.t2.llano||'';
+document.getElementById('t2-actual-valle').value=datos.t2.valle||'';
+document.getElementById('t2-actual-dto').value=datos.t2.dto||'0';
+if(datos.t2.unitPunta)document.querySelector(`input[name="t2-actual-unit-punta"][value="${datos.t2.unitPunta}"]`).checked=true;
+if(datos.t2.unitValle)document.querySelector(`input[name="t2-actual-unit-valle"][value="${datos.t2.unitValle}"]`).checked=true;
+}
+if(datos.gas){
+document.getElementById('gas-actual-nombre').value=datos.gas.nombre||'';
+document.getElementById('gas-actual-fijo').value=datos.gas.fijo||'';
+document.getElementById('gas-actual-variable').value=datos.gas.variable||'';
+document.getElementById('gas-actual-dto').value=datos.gas.dto||'0';
+if(datos.gas.unit)document.querySelector(`input[name="gas-actual-unit"][value="${datos.gas.unit}"]`).checked=true;
+}
+if(datos.t3){
+document.getElementById('t3-actual-nombre').value=datos.t3.nombre||'';
+document.getElementById('t3-actual-potencias').value=datos.t3.potencias||'';
+document.getElementById('t3-actual-energia').value=datos.t3.energia||'';
+document.getElementById('t3-actual-dto').value=datos.t3.dto||'0';
+}
+}
+
+function guardarDatos(){
+const datos={
+t2:{
+nombre:document.getElementById('t2-actual-nombre').value,
+potPuntaKw:document.getElementById('t2-actual-pot-punta-kw').value,
+potPuntaPrecio:document.getElementById('t2-actual-pot-punta-precio').value,
+potValleKw:document.getElementById('t2-actual-pot-valle-kw').value,
+potVallePrecio:document.getElementById('t2-actual-pot-valle-precio').value,
+punta:document.getElementById('t2-actual-punta').value,
+llano:document.getElementById('t2-actual-llano').value,
+valle:document.getElementById('t2-actual-valle').value,
+dto:document.getElementById('t2-actual-dto').value,
+unitPunta:document.querySelector('input[name="t2-actual-unit-punta"]:checked').value,
+unitValle:document.querySelector('input[name="t2-actual-unit-valle"]:checked').value
+},
+gas:{
+nombre:document.getElementById('gas-actual-nombre').value,
+fijo:document.getElementById('gas-actual-fijo').value,
+variable:document.getElementById('gas-actual-variable').value,
+dto:document.getElementById('gas-actual-dto').value,
+unit:document.querySelector('input[name="gas-actual-unit"]:checked').value
+},
+t3:{
+nombre:document.getElementById('t3-actual-nombre').value,
+potencias:document.getElementById('t3-actual-potencias').value,
+energia:document.getElementById('t3-actual-energia').value,
+dto:document.getElementById('t3-actual-dto').value
+}
+};
+localStorage.setItem('ofertaActual',JSON.stringify(datos));
+}
+
+function resetNuevaOferta(){
+if(tabActual==='t2'){
+document.getElementById('t2-nueva-nombre').value='';
+document.getElementById('t2-nueva-pot-punta-kw').value='';
+document.getElementById('t2-nueva-pot-punta-precio').value='';
+document.getElementById('t2-nueva-pot-valle-kw').value='';
+document.getElementById('t2-nueva-pot-valle-precio').value='';
+document.getElementById('t2-nueva-punta').value='';
+document.getElementById('t2-nueva-llano').value='';
+document.getElementById('t2-nueva-valle').value='';
+document.getElementById('t2-nueva-dto').value='0';
+document.querySelector('input[name="t2-nueva-unit-punta"][value="dia"]').checked=true;
+document.querySelector('input[name="t2-nueva-unit-valle"][value="dia"]').checked=true;
+}else if(tabActual==='gas'){
+document.getElementById('gas-nueva-nombre').value='';
+document.getElementById('gas-nueva-fijo').value='';
+document.getElementById('gas-nueva-variable').value='';
+document.getElementById('gas-nueva-dto').value='0';
+document.querySelector('input[name="gas-nueva-unit"][value="dia"]').checked=true;
+}else{
+document.getElementById('t3-nueva-nombre').value='';
+document.getElementById('t3-nueva-potencias').value='';
+document.getElementById('t3-nueva-energia').value='';
+document.getElementById('t3-nueva-dto').value='0';
+}
+}
+
+function calcular(){
+let nombreNueva='';
+let totalActual=0,totalNueva=0;
+
+if(tabActual==='t2'){
+const nombre=document.getElementById('t2-actual-nombre').value||'Actual T2';
+nombreNueva=document.getElementById('t2-nueva-nombre').value||'Nueva T2';
+const potPuntaKwA=parseFloat(document.getElementById('t2-actual-pot-punta-kw').value);
+const potPuntaPrecioA=parseFloat(document.getElementById('t2-actual-pot-punta-precio').value);
+const potValleKwA=parseFloat(document.getElementById('t2-actual-pot-valle-kw').value);
+const potVallePrecioA=parseFloat(document.getElementById('t2-actual-pot-valle-precio').value);
+const puntaA=parseFloat(document.getElementById('t2-actual-punta').value);
+const llanoA=parseFloat(document.getElementById('t2-actual-llano').value);
+const valleA=parseFloat(document.getElementById('t2-actual-valle').value);
+const dtoA=parseFloat(document.getElementById('t2-actual-dto').value)||0;
+const unitPuntaA=document.querySelector('input[name="t2-actual-unit-punta"]:checked').value;
+const unitValleA=document.querySelector('input[name="t2-actual-unit-valle"]:checked').value;
+
+const potPuntaKwN=parseFloat(document.getElementById('t2-nueva-pot-punta-kw').value);
+const potPuntaPrecioN=parseFloat(document.getElementById('t2-nueva-pot-punta-precio').value);
+const potValleKwN=parseFloat(document.getElementById('t2-nueva-pot-valle-kw').value);
+const potVallePrecioN=parseFloat(document.getElementById('t2-nueva-pot-valle-precio').value);
+const puntaN=parseFloat(document.getElementById('t2-nueva-punta').value);
+const llanoN=parseFloat(document.getElementById('t2-nueva-llano').value);
+const valleN=parseFloat(document.getElementById('t2-nueva-valle').value);
+const dtoN=parseFloat(document.getElementById('t2-nueva-dto').value)||0;
+const unitPuntaN=document.querySelector('input[name="t2-nueva-unit-punta"]:checked').value;
+const unitValleN=document.querySelector('input[name="t2-nueva-unit-valle"]:checked').value;
+
+if(isNaN(potPuntaKwA)||isNaN(potPuntaPrecioA)||isNaN(potValleKwA)||isNaN(potVallePrecioA)||isNaN(puntaA)||isNaN(llanoA)||isNaN(valleA)||
+isNaN(potPuntaKwN)||isNaN(potPuntaPrecioN)||isNaN(potValleKwN)||isNaN(potVallePrecioN)||isNaN(puntaN)||isNaN(llanoN)||isNaN(valleN)){
+alert('⚠️ Completa todos los campos T2');return;
+}
+
+const precPuntaA=aplicarDescuento(puntaA,dtoA);
+const precLlanoA=aplicarDescuento(llanoA,dtoA);
+const precValleA=aplicarDescuento(valleA,dtoA);
+const precPuntaN=aplicarDescuento(puntaN,dtoN);
+const precLlanoN=aplicarDescuento(llanoN,dtoN);
+const precValleN=aplicarDescuento(valleN,dtoN);
+
+for(let i=0;i<consumosT2.meses.length;i++){
+const dias=consumosT2.dias[i];
+totalActual+=consumosT2.punta[i]*precPuntaA+consumosT2.llano[i]*precLlanoA+consumosT2.valle[i]*precValleA;
+totalNueva+=consumosT2.punta[i]*precPuntaN+consumosT2.llano[i]*precLlanoN+consumosT2.valle[i]*precValleN;
+const potPrecPuntaA=(unitPuntaA==='dia'?potPuntaPrecioA:potPuntaPrecioA/365)*dias;
+const potPrecValleA=(unitValleA==='dia'?potVallePrecioA:potVallePrecioA/365)*dias;
+const potPrecPuntaN=(unitPuntaN==='dia'?potPuntaPrecioN:potPuntaPrecioN/365)*dias;
+const potPrecValleN=(unitValleN==='dia'?potVallePrecioN:potVallePrecioN/365)*dias;
+totalActual+=(potPuntaKwA*potPrecPuntaA+potValleKwA*potPrecValleA);
+totalNueva+=(potPuntaKwN*potPrecPuntaN+potValleKwN*potPrecValleN);
+}
+
+}else if(tabActual==='gas'){
+nombreNueva=document.getElementById('gas-nueva-nombre').value||'Nueva GAS';
+const fijoA=parseFloat(document.getElementById('gas-actual-fijo').value);
+const varA=parseFloat(document.getElementById('gas-actual-variable').value);
+const dtoA=parseFloat(document.getElementById('gas-actual-dto').value)||0;
+const unitA=document.querySelector('input[name="gas-actual-unit"]:checked').value;
+
+const fijoN=parseFloat(document.getElementById('gas-nueva-fijo').value);
+const varN=parseFloat(document.getElementById('gas-nueva-variable').value);
+const dtoN=parseFloat(document.getElementById('gas-nueva-dto').value)||0;
+const unitN=document.querySelector('input[name="gas-nueva-unit"]:checked').value;
+
+if(isNaN(fijoA)||isNaN(varA)||isNaN(fijoN)||isNaN(varN)){alert('⚠️ Completa todos los campos GAS');return}
+
+const precVarA=aplicarDescuento(varA,dtoA);
+const precVarN=aplicarDescuento(varN,dtoN);
+const precFijoA=unitA==='dia'?fijoA:fijoA/30.4167;
+const precFijoN=unitN==='dia'?fijoN:fijoN/30.4167;
+
+for(let i=0;i<consumosGas.meses.length;i++){
+totalActual+=consumosGas.kwh[i]*precVarA+precFijoA*consumosGas.dias[i];
+totalNueva+=consumosGas.kwh[i]*precVarN+precFijoN*consumosGas.dias[i];
+}
+
+}else{
+nombreNueva=document.getElementById('t3-nueva-nombre').value||'Nueva T3';
+const textoA=document.getElementById('t3-actual-potencias').value;
+const textoN=document.getElementById('t3-nueva-potencias').value;
+const energiaTextoA=document.getElementById('t3-actual-energia').value;
+const energiaTextoN=document.getElementById('t3-nueva-energia').value;
+
+if(!textoA||!textoN||!energiaTextoA||!energiaTextoN){alert('⚠️ Completa potencias y energía T3');return}
+
+const potA=parsePotencias(textoA);
+const potN=parsePotencias(textoN);
+const enA=parseEnergia(energiaTextoA);
+const enN=parseEnergia(energiaTextoN);
+
+if(Object.keys(potA).length<6||Object.keys(potN).length<6){alert('⚠️ No se detectaron 6 potencias');return}
+if(Object.keys(enA).length<1||Object.keys(enN).length<1){alert('⚠️ No se detectaron precios de energía');return}
+
+const dtoA=parseFloat(document.getElementById('t3-actual-dto').value)||0;
+const dtoN=parseFloat(document.getElementById('t3-nueva-dto').value)||0;
+const mes=parseInt(document.getElementById('t3-mes').value);
+const dias=diasMes[mes];
+
+for(let j=1;j<=6;j++){
+const p='P'+j;
+if(potA[p])totalActual+=(potA[p].kw*potA[p].precio*dias);
+if(potN[p])totalNueva+=(potN[p].kw*potN[p].precio*dias);
+}
+
+// Energía simplificada: usar P1 como referencia o promedio
+const precEnA=aplicarDescuento(enA.P1||Object.values(enA)[0]||0,dtoA);
+const precEnN=aplicarDescuento(enN.P1||Object.values(enN)[0]||0,dtoN);
+const consumoEst=500;
+totalActual+=consumoEst*precEnA;
+totalNueva+=consumoEst*precEnN;
+}
+
+guardarDatos();
+const ahorro=-(totalActual-totalNueva);
+mostrarResultados(totalActual,totalNueva,ahorro);
+guardarHistorico(nombreNueva,totalNueva,ahorro);
+}
+
+function mostrarResultados(actual,nueva,ahorro){
+const html=`<div class="results-header">💰 Resultados</div>
+<div class="summary">
+<div class="summary-card"><div class="summary-label">Total - Oferta Actual</div><div class="summary-amount">${actual.toFixed(2)} €</div></div>
+<div class="summary-card nueva"><div class="summary-label">Total - Oferta Nueva</div><div class="summary-amount">${nueva.toFixed(2)} €</div></div>
+</div>
+<div class="savings-grid-full">${getSavingHTML('💰 Ahorro TOTAL',ahorro)}</div>`;
+document.getElementById('results').innerHTML=html;
+document.getElementById('results').classList.remove('hidden');
+document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function getSavingHTML(label,valor){
+const clazz=valor<0?'positive':(valor>0?'negative':'neutral');
+const amount=valor>0?'+'+valor.toFixed(2):valor.toFixed(2);
+return `<div class="savings ${clazz}"><div class="savings-label">${label}</div><div class="savings-amount">${amount} €</div></div>`;
+}
+
+function guardarHistorico(nombre,total,ahorro){
+let hist=JSON.parse(localStorage.getItem('historicoOfertas')||'[]');
+hist.push({id:Date.now(),nombre:nombre,total:total,ahorro:ahorro,fecha:new Date().toLocaleString('es-ES')});
+localStorage.setItem('historicoOfertas',JSON.stringify(hist));
+mostrarHistorico();
+}
+
+function mostrarHistorico(){
+const hist=JSON.parse(localStorage.getItem('historicoOfertas')||'[]');
+const container=document.getElementById('historico-list');
+if(hist.length===0){container.innerHTML='<div class="historico-empty">No hay ofertas guardadas</div>';document.getElementById('historico').classList.add('hidden');return}
+document.getElementById('historico').classList.remove('hidden');
+container.innerHTML='';
+hist.reverse().forEach(o=>{
+const item=document.createElement('div');
+item.className='historico-item';
+const aClass=o.ahorro<0?'positive':(o.ahorro>0?'negative':'');
+item.innerHTML=`<div class="historico-nombre">${o.nombre}</div><div class="historico-total">${o.total.toFixed(2)} €</div><div class="historico-ahorro ${aClass}">${o.ahorro.toFixed(2)} €</div><button class="historico-delete" onclick="eliminarOferta(${o.id})">🗑️</button>`;
+container.appendChild(item);
+});
+}
+
+function eliminarOferta(id){
+if(!confirm('¿Eliminar?'))return;
+let hist=JSON.parse(localStorage.getItem('historicoOfertas')||'[]');
+hist=hist.filter(o=>o.id!==id);
+localStorage.setItem('historicoOfertas',JSON.stringify(hist));
+mostrarHistorico();
+}
+
+function limpiarHistorico(){
+if(!confirm('¿Eliminar TODO?'))return;
+localStorage.removeItem('historicoOfertas');
+mostrarHistorico();
+}
+
+function exportarHistorico(){
+const data={ofertaActual:JSON.parse(localStorage.getItem('ofertaActual')||'{}'),historico:JSON.parse(localStorage.getItem('historicoOfertas')||'[]'),exportDate:new Date().toISOString()};
+const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download=`historico_${new Date().toISOString().split('T')[0]}.json`;
+a.click();
+URL.revokeObjectURL(url);
+}
+
+function importarHistorico(e){
+const file=e.target.files[0];
+if(!file)return;
+const reader=new FileReader();
+reader.onload=function(ev){
+try{
+const data=JSON.parse(ev.target.result);
+if(data.ofertaActual){localStorage.setItem('ofertaActual',JSON.stringify(data.ofertaActual));cargarDatos()}
+if(data.historico){localStorage.setItem('historicoOfertas',JSON.stringify(data.historico));mostrarHistorico()}
+alert('✅ Importado');
+}catch(err){alert('❌ Error')}
+};
+reader.readAsText(file);
+e.target.value='';
+}
+</script>
+</body>
+</html>
