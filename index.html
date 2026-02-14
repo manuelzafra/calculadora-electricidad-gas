@@ -21,14 +21,16 @@ h1{text-align:center;color:#333;margin-bottom:10px;font-size:2em}
 .consumo-tres-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 .paste-info{background:#fff3cd;border-left:4px solid #ff9800;padding:12px;margin-bottom:15px;border-radius:4px;color:#856404;font-size:.9em}
 .tabla-container{background:linear-gradient(135deg,#f3e5f5 0%,#e1bee7 100%);border:2px solid #9c27b0;border-radius:15px;padding:20px;margin-bottom:20px;overflow-x:auto;box-shadow:0 4px 12px rgba(156,39,176,.1)}
-.tabla-meses{width:100%;border-collapse:collapse;margin-top:10px;background:#fff;min-width:900px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.tabla-meses th{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:12px 8px;font-weight:600;font-size:.85em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.2)}
+.tabla-meses{width:100%;border-collapse:collapse;margin-top:10px;background:#fff;min-width:1200px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.tabla-meses th{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:8px 4px;font-weight:600;font-size:.85em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.2)}
 .tabla-meses th:last-child{border-right:none}
-.tabla-meses td{padding:8px;border:1px solid #e0e0e0;text-align:center;transition:background .2s}
+.tabla-meses td{padding:2px;border:1px solid #e0e0e0;text-align:center;transition:background .2s}
 .tabla-meses tr:hover td{background:#f5f5f5}
-.tabla-meses td:first-child{background:linear-gradient(135deg,#f5f5f5 0%,#eeeeee 100%);font-weight:600;text-align:left;white-space:nowrap;position:sticky;left:0;z-index:1;border-right:2px solid #9c27b0}
-.tabla-meses input{width:70px;text-align:center;border:1px solid #ddd;padding:8px 4px;border-radius:6px;font-size:.9em;transition:border-color .3s,box-shadow .3s}
+.tabla-meses td:first-child{background:linear-gradient(135deg,#f5f5f5 0%,#eeeeee 100%);font-weight:600;text-align:left;white-space:nowrap;position:sticky;left:0;z-index:1;border-right:2px solid #9c27b0;padding:8px 10px}
+.tabla-meses input{width:90px;text-align:center;border:1px solid #ddd;padding:6px 2px;border-radius:4px;font-size:1em;transition:border-color .3s,box-shadow .3s}
 .tabla-meses input:focus{border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1);outline:none}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
 .tabla-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
 .btn-tabla{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;font-weight:500;transition:background .3s}
 .btn-default{background:#9c27b0;color:#fff}
