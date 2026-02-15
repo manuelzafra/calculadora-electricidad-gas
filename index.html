@@ -11,6 +11,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 h1{text-align:center;color:#333;margin-bottom:10px;font-size:2em}
 .subtitle{text-align:center;color:#666;margin-bottom:30px;font-size:.9em}
 .info-text{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px;margin-bottom:20px;color:#856404;font-size:.9em}
+.info-warning{background:#ffebee;border:2px solid #f44336;border-radius:10px;padding:20px;margin-top:20px;color:#c62828;font-size:.9em;line-height:1.6}
+.info-warning strong{color:#b71c1c;display:block;margin-bottom:10px;font-size:1.1em}
+.info-warning ul{margin:10px 0 10px 20px}
+.info-warning li{margin:5px 0}
 .tabs{display:flex;gap:10px;border-bottom:2px solid #e0e0e0;margin-bottom:30px}
 .tab{padding:15px 30px;cursor:pointer;background:#f5f5f5;border:none;border-radius:10px 10px 0 0;font-size:1.1em;font-weight:600;color:#666;transition:all .3s;border-bottom:3px solid transparent}
 .tab:hover{background:#e8e8e8}
@@ -115,6 +119,13 @@ input[type=number]{-moz-appearance:textfield}
 .tabla-t3 td:first-child{background:linear-gradient(135deg,#f5f5f5 0%,#eeeeee 100%);font-weight:700;color:#667eea;font-size:1.1em}
 .tabla-t3 .input-t3{width:85px;padding:8px 4px;border:1px solid #ddd;border-radius:4px;text-align:center;font-size:.95em}
 .tabla-t3 .input-t3:focus{border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1);outline:none}
+.tabla-t3-meses{width:100%;border-collapse:collapse;margin-top:10px;background:#fff;min-width:1400px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.tabla-t3-meses th{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:8px 4px;font-weight:600;font-size:.8em;white-space:nowrap;border-right:1px solid rgba(255,255,255,.2)}
+.tabla-t3-meses th:last-child{border-right:none}
+.tabla-t3-meses td{padding:2px;border:1px solid #e0e0e0;text-align:center}
+.tabla-t3-meses td:first-child{background:linear-gradient(135deg,#f5f5f5 0%,#eeeeee 100%);font-weight:700;color:#667eea;font-size:.95em;padding:6px 8px}
+.tabla-t3-meses input{width:70px;text-align:center;border:1px solid #ddd;padding:4px 2px;border-radius:4px;font-size:.9em}
+.tabla-t3-meses input:focus{border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1);outline:none}
 .tabla-actions{margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .btn-tabla{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:.9em;font-weight:600;transition:all .3s}
 .btn-tabla.btn-default{background:#9c27b0;color:#fff}
@@ -143,7 +154,7 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 <div class="container">
 <h1>⚡🔥 Calculadora Ofertas - Electricidad y Gas</h1>
 <p class="subtitle">Compara T2, GAS RL1 y T3 - Pega datos de tus facturas</p>
-<div class="info-text">📊 T2 y GAS con histórico incluido | T3 comparación directa por mes</div>
+<div class="info-text">📊 Comparación de ofertas con histórico y análisis detallado</div>
 
 <div class="tabs">
 <button class="tab active" onclick="cambiarTab('t2')">⚡ ELECTRICIDAD T2</button>
@@ -337,8 +348,15 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 
 <!-- TAB T3 -->
 <div id="tab-t3" class="tab-content">
-<div class="info-text">📌 T3: Comparación de factura específica. Rellena los datos de los 6 periodos (deja vacío lo que no uses ese mes).</div>
+<div class="info-text">📌 T3: Tarifa comercial con 6 periodos. Elige comparar 1 mes o varios meses.</div>
 
+<div class="modo-toggle">
+<button class="modo-btn active" onclick="cambiarModo('t3','mes')">📄 Comparar 1 mes</button>
+<button class="modo-btn" onclick="cambiarModo('t3','varios')">📊 Comparar varios meses</button>
+</div>
+
+<!-- Modo 1 mes -->
+<div id="t3-modo-mes">
 <div class="offers-container">
 <div class="offer-card">
 <div class="offer-header"><div class="offer-title">🏠 Oferta Actual</div></div>
@@ -494,6 +512,86 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 </div>
 </div>
 
+<!-- Modo varios meses T3 -->
+<div id="t3-modo-varios" class="hidden">
+<div class="offers-container">
+<div class="offer-card">
+<div class="offer-header"><div class="offer-title">🏠 Oferta Actual</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="t3-varios-actual-nombre" placeholder="Ej: Mi compañía">
+</div>
+
+<div class="tabla-container" style="background:linear-gradient(135deg,#e8f5e9 0%,#c8e6c9 100%);border-color:#4caf50">
+<span class="power-group-title" style="color:#2e7d32">⚡ Potencias y Consumos 12 meses (P1-P6)</span>
+<div class="paste-info" style="border-color:#4caf50">💡 <strong>Para pegar desde Excel:</strong> Copia la tabla completa (6 filas × 15 columnas) y usa el botón "Pegar datos".</div>
+<div style="overflow-x:auto">
+<table class="tabla-t3-meses">
+<thead>
+<tr>
+<th>Periodo</th>
+<th>kW</th>
+<th>€/kW/día</th>
+<th>Ene</th><th>Feb</th><th>Mar</th><th>Abr</th><th>May</th><th>Jun</th>
+<th>Jul</th><th>Ago</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th>
+<th>€/kWh</th>
+</tr>
+</thead>
+<tbody id="t3-varios-actual-tbody"></tbody>
+</table>
+</div>
+<div class="tabla-actions">
+<button class="btn-tabla btn-paste" onclick="abrirModalPasteT3Varios('actual')">📥 Pegar tabla completa</button>
+</div>
+</div>
+
+<div class="discount-group">
+<label>💰 Descuento Energía (%)</label>
+<input type="number" id="t3-varios-actual-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica a todos los precios de energía</small>
+</div>
+</div>
+
+<div class="offer-card nueva">
+<div class="offer-header"><div class="offer-title">✨ Oferta Nueva</div></div>
+<div class="company-name">
+<label>🏢 Nombre de la Compañía</label>
+<input type="text" id="t3-varios-nueva-nombre" placeholder="Ej: Oferta T3">
+</div>
+
+<div class="tabla-container" style="background:linear-gradient(135deg,#e3f2fd 0%,#bbdefb 100%);border-color:#2196F3">
+<span class="power-group-title" style="color:#1976D2">⚡ Potencias y Consumos 12 meses (P1-P6)</span>
+<div class="paste-info" style="border-color:#2196F3">💡 <strong>Para pegar desde Excel:</strong> Copia la tabla completa (6 filas × 15 columnas) y usa el botón "Pegar datos".</div>
+<div style="overflow-x:auto">
+<table class="tabla-t3-meses">
+<thead>
+<tr>
+<th>Periodo</th>
+<th>kW</th>
+<th>€/kW/día</th>
+<th>Ene</th><th>Feb</th><th>Mar</th><th>Abr</th><th>May</th><th>Jun</th>
+<th>Jul</th><th>Ago</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th>
+<th>€/kWh</th>
+</tr>
+</thead>
+<tbody id="t3-varios-nueva-tbody"></tbody>
+</table>
+</div>
+<div class="tabla-actions">
+<button class="btn-tabla btn-paste" onclick="abrirModalPasteT3Varios('nueva')">📥 Pegar tabla completa</button>
+</div>
+</div>
+
+<div class="discount-group">
+<label>💰 Descuento Energía (%)</label>
+<input type="number" id="t3-varios-nueva-dto" step="0.1" placeholder="0" value="0">
+<small style="color:#1976D2">Se aplica a todos los precios de energía</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 <button class="calculate-btn" onclick="calcular()">📊 CALCULAR Y COMPARAR</button>
 
 <div id="results" class="results hidden"></div>
@@ -536,13 +634,31 @@ const consumosGasDefault={kwh:[35,700,340,300,120,100,35,90,340,500,910,800]};
 const consumosT2={meses:['Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero','Febrero'],dias:[31,30,31,30,31,30,31,30,31,30,31,28]};
 const consumosGas={meses:['Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero'],dias:[28,31,30,31,30,31,31,30,31,30,31,31]};
 const diasMes=[31,28,31,30,31,30,31,31,30,31,30,31];
+const nombMes=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
 let tabActual='t2';
 let modoT2='mes';
 let modoGas='mes';
+let modoT3='mes';
 let tipoActualPaste='';
 
-window.addEventListener('DOMContentLoaded',()=>{cargarDatos();mostrarHistorico()});
+window.addEventListener('DOMContentLoaded',()=>{cargarDatos();mostrarHistorico();inicializarTablasT3Varios()});
+
+function inicializarTablasT3Varios(){
+const tipos=['actual','nueva'];
+tipos.forEach(tipo=>{
+const tbody=document.getElementById(`t3-varios-${tipo}-tbody`);
+for(let p=1;p<=6;p++){
+const tr=document.createElement('tr');
+tr.innerHTML=`<td><strong>P${p}</strong></td>
+<td><input type="number" id="t3v-${tipo}-pot-p${p}" step="0.001" class="input-t3"></td>
+<td><input type="number" id="t3v-${tipo}-ppot-p${p}" step="0.001" class="input-t3"></td>
+${nombMes.map((m,i)=>`<td><input type="number" id="t3v-${tipo}-cons-p${p}-m${i}" step="0.01" class="input-t3"></td>`).join('')}
+<td><input type="number" id="t3v-${tipo}-pene-p${p}" step="0.001" class="input-t3"></td>`;
+tbody.appendChild(tr);
+}
+});
+}
 
 function cambiarTab(tab){
 tabActual=tab;
@@ -567,7 +683,7 @@ document.querySelectorAll('#tab-t2 .modo-btn')[1].classList.add('active');
 document.getElementById('t2-consumo-mes').classList.add('hidden');
 document.getElementById('t2-tabla-meses').classList.remove('hidden');
 }
-}else{
+}else if(tipo==='gas'){
 modoGas=modo;
 document.querySelectorAll('#tab-gas .modo-btn').forEach(b=>b.classList.remove('active'));
 if(modo==='mes'){
@@ -578,6 +694,18 @@ document.getElementById('gas-tabla-meses').classList.add('hidden');
 document.querySelectorAll('#tab-gas .modo-btn')[1].classList.add('active');
 document.getElementById('gas-consumo-mes').classList.add('hidden');
 document.getElementById('gas-tabla-meses').classList.remove('hidden');
+}
+}else{
+modoT3=modo;
+document.querySelectorAll('#tab-t3 .modo-btn').forEach(b=>b.classList.remove('active'));
+if(modo==='mes'){
+document.querySelectorAll('#tab-t3 .modo-btn')[0].classList.add('active');
+document.getElementById('t3-modo-mes').classList.remove('hidden');
+document.getElementById('t3-modo-varios').classList.add('hidden');
+}else{
+document.querySelectorAll('#tab-t3 .modo-btn')[1].classList.add('active');
+document.getElementById('t3-modo-mes').classList.add('hidden');
+document.getElementById('t3-modo-varios').classList.remove('hidden');
 }
 }
 }
@@ -696,6 +824,20 @@ modal.classList.remove('hidden');
 textarea.focus();
 }
 
+function abrirModalPasteT3Varios(tipo){
+tipoActualPaste='t3-varios-'+tipo;
+const modal=document.getElementById('modalPaste');
+const titulo=document.getElementById('modalTitle');
+const instrucciones=document.getElementById('modalInstrucciones');
+const textarea=document.getElementById('modalTextarea');
+
+titulo.textContent='📥 Pegar tabla T3 varios meses';
+instrucciones.innerHTML='<strong>Instrucciones:</strong> Copia desde Excel la tabla completa con <strong>6 filas × 15 columnas</strong><br><br><strong>Formato por fila:</strong> kW | €/kW/día | Ene | Feb | Mar | Abr | May | Jun | Jul | Ago | Sep | Oct | Nov | Dic | €/kWh<br><br><strong>Ejemplo P1:</strong><br><code>13.5  0.042  45  50  55  60  65  70  75  80  85  90  95  100  0.15</code>';
+textarea.value='';
+modal.classList.remove('hidden');
+textarea.focus();
+}
+
 function cerrarModal(){
 document.getElementById('modalPaste').classList.add('hidden');
 }
@@ -709,6 +851,9 @@ return;
 if(tipoActualPaste.startsWith('t3-2fases-')){
 const tipo=tipoActualPaste.replace('t3-2fases-','');
 aplicarTarifa2Fases('t3-'+tipo,texto);
+}else if(tipoActualPaste.startsWith('t3-varios-')){
+const tipo=tipoActualPaste.replace('t3-varios-','');
+procesarPasteT3Varios(tipo,texto);
 }else if(tipoActualPaste.startsWith('t3-')){
 const tipo=tipoActualPaste.replace('t3-','');
 procesarPasteT3('t3-'+tipo,texto);
@@ -817,6 +962,36 @@ alert('⚠️ No se encontraron valores numéricos');
 }
 }
 
+function procesarPasteT3Varios(tipo,texto){
+const lineas=texto.trim().split('\n');
+if(lineas.length<6){
+alert(`⚠️ Se esperan 6 filas (P1-P6). Recibidas: ${lineas.length}`);
+return;
+}
+let pegados=0;
+for(let i=0;i<6;i++){
+const valores=lineas[i].split(/[\t ]+/);
+if(valores.length>=15){
+const p=i+1;
+const pot=parseFloat(valores[0].replace(',','.'));
+const ppot=parseFloat(valores[1].replace(',','.'));
+if(!isNaN(pot)){document.getElementById(`t3v-${tipo}-pot-p${p}`).value=pot;pegados++}
+if(!isNaN(ppot)){document.getElementById(`t3v-${tipo}-ppot-p${p}`).value=ppot;pegados++}
+for(let m=0;m<12;m++){
+const cons=parseFloat(valores[2+m].replace(',','.'));
+if(!isNaN(cons)){document.getElementById(`t3v-${tipo}-cons-p${p}-m${m}`).value=cons;pegados++}
+}
+const pene=parseFloat(valores[14].replace(',','.'));
+if(!isNaN(pene)){document.getElementById(`t3v-${tipo}-pene-p${p}`).value=pene;pegados++}
+}
+}
+if(pegados>0){
+alert(`✅ Datos pegados: ${pegados} valores`);
+}else{
+alert('⚠️ No se encontraron valores');
+}
+}
+
 function cargarDatos(){
 const d=localStorage.getItem('ofertaActual');
 if(!d)return;
@@ -897,6 +1072,7 @@ document.getElementById('gas-nueva-variable').value='';
 document.getElementById('gas-nueva-dto').value='0';
 document.querySelector('input[name="gas-nueva-unit"][value="dia"]').checked=true;
 }else{
+if(modoT3==='mes'){
 document.getElementById('t3-nueva-nombre').value='';
 for(let i=1;i<=6;i++){
 document.getElementById(`t3-nueva-pot-p${i}`).value='';
@@ -905,6 +1081,59 @@ document.getElementById(`t3-nueva-cons-p${i}`).value='';
 document.getElementById(`t3-nueva-precio-ene-p${i}`).value='';
 }
 document.getElementById('t3-nueva-dto').value='0';
+}else{
+document.getElementById('t3-varios-nueva-nombre').value='';
+for(let p=1;p<=6;p++){
+document.getElementById(`t3v-nueva-pot-p${p}`).value='';
+document.getElementById(`t3v-nueva-ppot-p${p}`).value='';
+for(let m=0;m<12;m++){
+document.getElementById(`t3v-nueva-cons-p${p}-m${m}`).value='';
+}
+document.getElementById(`t3v-nueva-pene-p${p}`).value='';
+}
+document.getElementById('t3-varios-nueva-dto').value='0';
+}
+}
+}
+
+function getInfoCostesNoIncluidos(){
+if(tabActual==='t2'){
+return `<div class="info-warning">
+<strong>⚠️ COSTES NO INCLUIDOS EN LA COMPARACIÓN</strong>
+<p>Los siguientes conceptos son idénticos en ambas ofertas y NO se incluyen en el cálculo:</p>
+<ul>
+<li><strong>Impuesto electricidad:</strong> 5,11% sobre facturación</li>
+<li><strong>Alquiler equipos:</strong> 0,027 €/día</li>
+<li><strong>Cuota GTS (Gestor Técnico del Sistema):</strong> Variable según consumo y potencia</li>
+<li><strong>Cuota CNMC:</strong> Porcentaje sobre peajes y cargos</li>
+<li><strong>IVA:</strong> 21%</li>
+</ul>
+</div>`;
+}else if(tabActual==='gas'){
+return `<div class="info-warning">
+<strong>⚠️ COSTES NO INCLUIDOS EN LA COMPARACIÓN</strong>
+<p>Los siguientes conceptos son idénticos en ambas ofertas y NO se incluyen en el cálculo:</p>
+<ul>
+<li><strong>Impuesto hidrocarburos:</strong> 0,00234 €/kWh</li>
+<li><strong>Alquiler contador:</strong> 1,16 €/mes</li>
+<li><strong>Cuota GTS:</strong> Variable según consumo</li>
+<li><strong>Cuota CNMC:</strong> Porcentaje sobre peajes y cargos</li>
+<li><strong>IVA:</strong> 21%</li>
+</ul>
+</div>`;
+}else{
+return `<div class="info-warning">
+<strong>⚠️ COSTES NO INCLUIDOS EN LA COMPARACIÓN</strong>
+<p>Los siguientes conceptos son idénticos en ambas ofertas y NO se incluyen en el cálculo:</p>
+<ul>
+<li><strong>Alquiler equipos:</strong> 1,82 €/mes</li>
+<li><strong>Impuesto electricidad:</strong> 5,11% sobre energía</li>
+<li><strong>Potencia reactiva:</strong> Variable según consumo</li>
+<li><strong>Cuota GTS:</strong> Variable según consumo y potencia</li>
+<li><strong>Cuota CNMC:</strong> Porcentaje sobre peajes y cargos</li>
+<li><strong>IVA:</strong> 21%</li>
+</ul>
+</div>`;
 }
 }
 
@@ -1017,6 +1246,7 @@ datosUsados='<p><strong>Periodo:</strong> 12 meses (Febrero-Enero)</p>';
 }
 
 }else{
+if(modoT3==='mes'){
 nombreNueva=document.getElementById('t3-nueva-nombre').value||'Nueva T3';
 const dtoA=parseFloat(document.getElementById('t3-actual-dto').value)||0;
 const dtoN=parseFloat(document.getElementById('t3-nueva-dto').value)||0;
@@ -1050,7 +1280,46 @@ totalNueva+=consN*precioConDesc;
 }
 
 if(totalActual===0&&totalNueva===0){alert('⚠️ Rellena al menos algunos datos en T3');return}
-datosUsados=`<p><strong>Consumo total:</strong> ${consumoTotal.toFixed(0)} kWh</p>`;
+datosUsados=`<p><strong>Consumo total:</strong> ${consumoTotal.toFixed(0)} kWh (1 mes)</p>`;
+}else{
+nombreNueva=document.getElementById('t3-varios-nueva-nombre').value||'Nueva T3';
+const dtoA=parseFloat(document.getElementById('t3-varios-actual-dto').value)||0;
+const dtoN=parseFloat(document.getElementById('t3-varios-nueva-dto').value)||0;
+
+let consumoTotal=0;
+
+for(let p=1;p<=6;p++){
+const potA=parseFloat(document.getElementById(`t3v-actual-pot-p${p}`).value)||0;
+const ppotA=parseFloat(document.getElementById(`t3v-actual-ppot-p${p}`).value)||0;
+const peneA=parseFloat(document.getElementById(`t3v-actual-pene-p${p}`).value)||0;
+
+const potN=parseFloat(document.getElementById(`t3v-nueva-pot-p${p}`).value)||0;
+const ppotN=parseFloat(document.getElementById(`t3v-nueva-ppot-p${p}`).value)||0;
+const peneN=parseFloat(document.getElementById(`t3v-nueva-pene-p${p}`).value)||0;
+
+for(let m=0;m<12;m++){
+const consA=parseFloat(document.getElementById(`t3v-actual-cons-p${p}-m${m}`).value)||0;
+const consN=parseFloat(document.getElementById(`t3v-nueva-cons-p${p}-m${m}`).value)||0;
+const dias=diasMes[m];
+
+if(potA>0&&ppotA>0)totalActual+=potA*ppotA*dias;
+if(potN>0&&ppotN>0)totalNueva+=potN*ppotN*dias;
+
+if(consA>0&&peneA>0){
+const precioConDesc=aplicarDescuento(peneA,dtoA);
+totalActual+=consA*precioConDesc;
+consumoTotal+=consA;
+}
+if(consN>0&&peneN>0){
+const precioConDesc=aplicarDescuento(peneN,dtoN);
+totalNueva+=consN*precioConDesc;
+}
+}
+}
+
+if(totalActual===0&&totalNueva===0){alert('⚠️ Rellena al menos algunos datos en T3');return}
+datosUsados=`<p><strong>Consumo total:</strong> ${consumoTotal.toFixed(0)} kWh (12 meses)</p>`;
+}
 }
 
 guardarDatos();
@@ -1067,13 +1336,15 @@ boxActual='<div class="result-box ahorro">✅ Hay ahorro. Interesa cambiarse</di
 }else if(ahorro>0){
 boxNueva='<div class="result-box no-ahorro">❌ No hay ahorro, mejor la oferta actual</div>';
 }
+const infoAdicional=getInfoCostesNoIncluidos();
 const html=`<div class="results-header">💰 Resultados</div>
 <div class="summary">
 <div class="summary-card"><div class="summary-label">Total - Oferta Actual</div><div class="summary-amount">${actual.toFixed(2)} €</div>${boxNueva}</div>
 <div class="summary-card nueva"><div class="summary-label">Total - Oferta Nueva</div><div class="summary-amount">${nueva.toFixed(2)} €</div>${boxActual}</div>
 </div>
 <div class="savings-grid-full">${getSavingHTML('💰 Ahorro TOTAL',ahorro)}</div>
-<div class="datos-usados"><strong>Datos usados en el cálculo:</strong>${datosUsados}</div>`;
+<div class="datos-usados"><strong>Datos usados en el cálculo:</strong>${datosUsados}</div>
+${infoAdicional}`;
 document.getElementById('results').innerHTML=html;
 document.getElementById('results').classList.remove('hidden');
 document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
