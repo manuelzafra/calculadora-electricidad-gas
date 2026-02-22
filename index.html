@@ -2,8 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora Ofertas - Electricidad y Gas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Comparador Tarifas Electricidad y Gas - Calcula tu Ahorro</title>
+<meta name="description" content="Compara tarifas de electricidad T2, T3 y gas RL1. Calcula ahorros mensuales y anuales. Herramienta gratuita sin registro. Pega datos de tus facturas.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="">
+<meta name="theme-color" content="#667eea">
+<meta name="author" content="LIVINK">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
@@ -132,6 +137,9 @@ input[type=radio]{cursor:pointer}
 .modal-body textarea:focus{outline:0;border-color:#667eea}
 .modal-footer{padding:20px;display:flex;gap:10px;justify-content:flex-end;border-top:1px solid #e0e0e0}
 small{display:block;margin-top:5px;color:#666;font-size:.85em}
+.btn-comentarios{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#ff9800 0%,#f57c00 100%);color:#fff;border:none;border-radius:50px;width:60px;height:60px;font-size:1.5em;cursor:pointer;box-shadow:0 4px 12px rgba(255,152,0,.4);transition:all .3s;z-index:100;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.btn-comentarios:hover{transform:scale(1.1);box-shadow:0 6px 16px rgba(255,152,0,.5)}
+@media(max-width:600px){.btn-comentarios{width:50px;height:50px;bottom:20px;right:20px;font-size:1.2em}}
 </style>
 </head>
 <body>
@@ -466,6 +474,42 @@ Precio P2: 0,140 €/kWh
 
 <input type="file" id="importFile" class="file-input" accept=".json" onchange="importarHistorico(event)">
 
+<!-- Botón flotante para comentarios -->
+<button id="btnComentarios" class="btn-comentarios" onclick="abrirFormularioComentarios()" title="Enviar comentarios o reportar errores">💬 Comentarios</button>
+
+<!-- Modal de comentarios -->
+<div id="modalComentarios" class="modal hidden">
+<div class="modal-content">
+<div class="modal-header">
+<h3>💬 Comentarios y Errores</h3>
+<button class="modal-close" onclick="cerrarModalComentarios()">✕</button>
+</div>
+<div class="modal-body">
+<p>¿Encontraste un error o tienes sugerencias? Cuéntanos.</p>
+<form id="formComentarios">
+<div class="form-group"><label>Nombre (opcional)</label><input type="text" id="nombre-comentario" placeholder="Tu nombre"></div>
+<div class="form-group"><label>Email (opcional)</label><input type="email" id="email-comentario" placeholder="tu@email.com"></div>
+<div class="form-group"><label>Mensaje *</label><textarea id="mensaje-comentario" placeholder="Describe el error o tu sugerencia" required></textarea></div>
+<div class="form-group"><label><input type="checkbox" id="tipo-error"> Es un error / bug</label></div>
+</form>
+</div>
+<div class="modal-footer">
+<button class="btn-secondary" onclick="cerrarModalComentarios()">Cancelar</button>
+<button class="btn-tabla btn-paste" onclick="enviarComentarioGoogle()">✅ Enviar</button>
+</div>
+</div>
+</div>
+
+<!-- Google Analytics Placeholder -->
+<!-- REEMPLAZA 'G-XXXXXXXXXX' CON TU MEASUREMENT ID -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script> -->
+
 <script>
 const consumosT2Default={meses:['Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero','Febrero'],dias:[31,30,31,30,31,30,31,30,31,30,31,28],punta:[54,75,55,24,13,28,14,26,24,26,30,40],llano:[38,54,44,22,15,25,16,25,20,27,25,35],valle:[54,69,67,35,25,35,26,29,33,39,40,50]};
 const consumosGasDefault={meses:['Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero'],dias:[28,31,30,31,30,31,31,30,31,30,31,31],kwh:[35,700,340,300,120,100,35,90,340,500,910,800]};
@@ -544,6 +588,39 @@ textarea.focus();
 
 function cerrarModal(){
 document.getElementById('modalPaste').classList.add('hidden');
+}
+
+function abrirFormularioComentarios(){
+document.getElementById('modalComentarios').classList.remove('hidden');
+document.getElementById('mensaje-comentario').focus();
+}
+
+function cerrarModalComentarios(){
+document.getElementById('modalComentarios').classList.add('hidden');
+document.getElementById('formComentarios').reset();
+}
+
+function enviarComentarioGoogle(){
+const nombre=document.getElementById('nombre-comentario').value||'Anónimo';
+const email=document.getElementById('email-comentario').value||'No proporcionado';
+const mensaje=document.getElementById('mensaje-comentario').value;
+const esError=document.getElementById('tipo-error').checked?'SÍ':'NO';
+
+if(!mensaje.trim()){alert('⚠️ El mensaje es obligatorio');return}
+
+const googleFormURL='https://docs.google.com/forms/d/e/REEMPLAZA_CON_TU_FORM_ID/formResponse';
+const data=new FormData();
+data.append('entry.XXXXXXXXX',nombre);
+data.append('entry.YYYYYYYYY',email);
+data.append('entry.ZZZZZZZZZ',mensaje);
+data.append('entry.WWWWWWWWW',esError);
+
+fetch(googleFormURL,{method:'POST',body:data,mode:'no-cors'}).then(()=>{
+alert('✅ Comentario enviado. ¡Gracias!');
+cerrarModalComentarios();
+}).catch(()=>{
+alert('⚠️ Error al enviar. Intenta de nuevo.');
+});
 }
 
 function aplicarPaste(){
