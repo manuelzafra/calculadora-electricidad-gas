@@ -1,0 +1,80 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
+.container{max-width:1600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+h1{text-align:center;color:#333;margin-bottom:10px;font-size:2em}
+.subtitle{text-align:center;color:#666;margin-bottom:30px;font-size:.9em}
+.info-text{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px;margin-bottom:20px;color:#856404;font-size:.9em}
+.tabs{display:flex;gap:10px;border-bottom:2px solid #e0e0e0;margin-bottom:30px}
+.tab{padding:15px 30px;cursor:pointer;background:#f5f5f5;border:none;border-radius:10px 10px 0 0;font-size:1.1em;font-weight:600;color:#666;transition:all .3s;border-bottom:3px solid transparent}
+.tab:hover{background:#e8e8e8}
+.tab.active{background:#fff;color:#667eea;border-bottom:3px solid #667eea}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.offers-container{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:30px}
+.offer-card{border:2px solid #e0e0e0;border-radius:15px;padding:25px;background:#fafafa}
+.offer-card.nueva{border-color:#2196F3;background:#f0f7ff}
+.offer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.offer-title{font-size:1.5em;font-weight:700;color:#333}
+.offer-card.nueva .offer-title{color:#2196F3}
+.reset-btn{padding:8px 16px;background:#ff5722;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.9em;font-weight:500;transition:background .3s}
+.reset-btn:hover{background:#e64a19}
+.company-name{background:linear-gradient(135deg,#ff9800 0%,#f57c00 100%);border:2px solid #e65100;border-radius:12px;padding:20px;margin-bottom:25px}
+.company-name label{color:#fff;font-weight:700;font-size:1.1em;display:block;margin-bottom:8px;text-shadow:1px 1px 2px rgba(0,0,0,.3)}
+.company-name input{border:2px solid #fff;background:#fff;font-weight:600}
+.form-group{margin-bottom:18px}
+.discount-group{background:#e3f2fd;border:2px solid #2196F3;border-radius:10px;padding:15px;margin-bottom:20px}
+.discount-group label{color:#1976D2;font-weight:700;font-size:1em}
+.power-group{background:#fff3e0;border:2px solid #ff9800;border-radius:10px;padding:15px;margin-bottom:20px}
+.power-group label{color:#e65100;font-weight:700;font-size:1em}
+.power-group-title{color:#e65100;font-weight:700;font-size:1.1em;margin-bottom:15px;display:block}
+.energy-group{background:#e8f5e9;border:2px solid #4caf50;border-radius:10px;padding:15px;margin-bottom:20px}
+.energy-group-title{color:#2e7d32;font-weight:700;font-size:1.1em;margin-bottom:15px;display:block}
+.paste-group{background:#f3e5f5;border:2px solid #9c27b0;border-radius:10px;padding:15px;margin-bottom:20px}
+.paste-group label{color:#7b1fa2;font-weight:700;font-size:1em;display:block;margin-bottom:8px}
+.two-cols{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.copy-btn{padding:6px 12px;background:#4caf50;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.85em;margin-top:10px;transition:background .3s}
+.copy-btn:hover{background:#45a049}
+label{display:block;margin-bottom:5px;color:#555;font-weight:500;font-size:.95em}
+input[type=text],input[type=number],textarea,select{width:100%;padding:10px 12px;border:2px solid #ddd;border-radius:8px;font-size:1em;transition:border-color .3s;font-family:inherit}
+input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{outline:0;border-color:#667eea}
+textarea{min-height:100px;resize:vertical}
+.unit-selector{display:flex;gap:10px;margin-top:8px}
+.unit-selector label{display:flex;align-items:center;gap:5px;font-weight:400;cursor:pointer}
+input[type=radio]{cursor:pointer}
+.calculate-btn{width:100%;padding:15px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:10px;font-size:1.1em;font-weight:700;cursor:pointer;margin-top:20px;transition:transform .2s}
+.calculate-btn:hover{transform:translateY(-2px)}
+.results{margin-top:40px;padding-top:30px;border-top:3px solid #e0e0e0}
+.results-header{text-align:center;font-size:1.8em;font-weight:700;margin-bottom:25px;color:#333}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px}
+.summary-card{padding:20px;border-radius:12px;text-align:center;background:linear-gradient(135deg,#9E9E9E 0%,#757575 100%);color:#fff}
+.summary-card.nueva{background:linear-gradient(135deg,#2196F3 0%,#1976D2 100%)}
+.summary-label{font-size:1.1em;margin-bottom:10px;opacity:.9}
+.summary-amount{font-size:2.5em;font-weight:700}
+.savings-grid-full{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:30px}
+.savings{text-align:center;padding:20px;border-radius:12px;transition:all .3s}
+.savings.positive{background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);color:#fff}
+.savings.negative{background:linear-gradient(135deg,#f44336 0%,#d32f2f 100%);color:#fff}
+.savings.neutral{background:linear-gradient(135deg,#9E9E9E 0%,#757575 100%);color:#fff}
+.savings-label{font-size:1em;margin-bottom:8px;opacity:.9}
+.savings-amount{font-size:2em;font-weight:700}
+.hidden{display:none}
+.historico{margin-top:40px;padding-top:30px;border-top:3px solid #e0e0e0}
+.historico-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.historico-title{font-size:1.8em;font-weight:700;color:#333}
+.historico-actions{display:flex;gap:10px}
+.btn-secondary{padding:10px 16px;background:#757575;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.9em;font-weight:500;transition:background .3s}
+.btn-secondary:hover{background:#616161}
+.btn-danger{background:#f44336}
+.btn-danger:hover{background:#d32f2f}
+.historico-list{display:grid;gap:15px}
+.historico-item{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:15px;align-items:center;padding:15px 20px;background:#f5f5f5;border-radius:10px;border-left:4px solid #2196F3}
+.historico-nombre{font-weight:600;color:#333;font-size:1.1em}
+.historico-total{text-align:center;font-size:1.2em;font-weight:700;color:#2196F3}
+.historico-ahorro{text-align:center;font-size:1.2em;font-weight:700}
+.historico-ahorro.positive{color:#4CAF50}
+.historico-ahorro.negative{color:#f44336}
+.historico-delete{padding:8px 12px;background:#f44336;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.85em;transition:background .3s}
+.historico-delete:hover{background:#d32f2f}
+.historico-empty{text-align:center;padding:40px;color:#999;font-style:italic}
+.file-input{display:none}
+small{display:block;margin-top:5px;color:#666;font-size:.85em}
