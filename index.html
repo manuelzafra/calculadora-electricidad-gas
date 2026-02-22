@@ -27,6 +27,8 @@ h1{text-align:center;color:#333;margin-bottom:10px;font-size:2em}
 .tabla-meses td{padding:2px;border:1px solid #e0e0e0;text-align:center;transition:background .2s}
 .tabla-meses tr:hover td{background:#f5f5f5}
 .tabla-meses td:first-child{background:linear-gradient(135deg,#f5f5f5 0%,#eeeeee 100%);font-weight:600;text-align:left;white-space:nowrap;position:sticky;left:0;z-index:1;border-right:2px solid #9c27b0;padding:8px 10px}
+.tabla-meses td:nth-child(2),.tabla-meses td:nth-child(3){position:sticky;left:70px;background:#f9f9f9;border-right:1px solid #ddd;z-index:1;min-width:90px}
+.tabla-meses th:nth-child(2),.tabla-meses th:nth-child(3){position:sticky;left:70px;z-index:2}
 .tabla-meses input{width:90px;text-align:center;border:1px solid #ddd;padding:6px 2px;border-radius:4px;font-size:1em;transition:border-color .3s,box-shadow .3s}
 .tabla-meses input:focus{border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1);outline:none}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
@@ -166,8 +168,8 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 <div id="t2-tabla-meses" class="tabla-container hidden">
 <span class="power-group-title">📊 Consumos últimos 12 meses</span>
 <div class="paste-info">💡 <strong>Para pegar desde Excel o Google Sheets:</strong> Selecciona las 3 filas de datos, cópialas (Ctrl+C) y usa el botón "Pegar datos" de abajo.</div>
-<table class="tabla-meses">
-<thead><tr><th></th><th>Mar</th><th>Abr</th><th>May</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th><th>Ene</th><th>Feb</th></tr></thead>
+<table class="tabla-meses" id="t2-tabla">
+<thead><tr><th></th><th>Mes 1</th><th>Mes 2</th><th>Mes 3</th><th>Mes 4</th><th>Mes 5</th><th>Mes 6</th><th>Mes 7</th><th>Mes 8</th><th>Mes 9</th><th>Mes 10</th><th>Mes 11</th><th>Mes 12</th></tr></thead>
 <tbody>
 <tr><td><strong>Punta (kWh)</strong></td><td><input type="number" id="t2-punta-0" step="0.01"></td><td><input type="number" id="t2-punta-1" step="0.01"></td><td><input type="number" id="t2-punta-2" step="0.01"></td><td><input type="number" id="t2-punta-3" step="0.01"></td><td><input type="number" id="t2-punta-4" step="0.01"></td><td><input type="number" id="t2-punta-5" step="0.01"></td><td><input type="number" id="t2-punta-6" step="0.01"></td><td><input type="number" id="t2-punta-7" step="0.01"></td><td><input type="number" id="t2-punta-8" step="0.01"></td><td><input type="number" id="t2-punta-9" step="0.01"></td><td><input type="number" id="t2-punta-10" step="0.01"></td><td><input type="number" id="t2-punta-11" step="0.01"></td></tr>
 <tr><td><strong>Llano (kWh)</strong></td><td><input type="number" id="t2-llano-0" step="0.01"></td><td><input type="number" id="t2-llano-1" step="0.01"></td><td><input type="number" id="t2-llano-2" step="0.01"></td><td><input type="number" id="t2-llano-3" step="0.01"></td><td><input type="number" id="t2-llano-4" step="0.01"></td><td><input type="number" id="t2-llano-5" step="0.01"></td><td><input type="number" id="t2-llano-6" step="0.01"></td><td><input type="number" id="t2-llano-7" step="0.01"></td><td><input type="number" id="t2-llano-8" step="0.01"></td><td><input type="number" id="t2-llano-9" step="0.01"></td><td><input type="number" id="t2-llano-10" step="0.01"></td><td><input type="number" id="t2-llano-11" step="0.01"></td></tr>
@@ -177,6 +179,8 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 <div class="tabla-actions">
 <button class="btn-tabla btn-default" onclick="usarDefaults('t2')">📋 Usar consumos por defecto</button>
 <button class="btn-tabla btn-paste" onclick="abrirModalPaste('t2')">📥 Pegar datos</button>
+<button class="btn-tabla" style="background:#4caf50;color:#fff" onclick="copiarTabla('t2')">📋 Copiar tabla</button>
+<button class="btn-tabla" style="background:#1976d2;color:#fff" onclick="window.open('https://sheets.new/','_blank')">📊 Abrir Sheets</button>
 </div>
 </div>
 
@@ -272,8 +276,8 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 <div id="gas-tabla-meses" class="tabla-container hidden">
 <span class="power-group-title">📊 Consumos últimos 12 meses</span>
 <div class="paste-info">💡 <strong>Para pegar desde Excel o Google Sheets:</strong> Selecciona la fila con los 12 valores, cópiala (Ctrl+C) y usa el botón "Pegar datos".</div>
-<table class="tabla-meses">
-<thead><tr><th></th><th>Feb</th><th>Mar</th><th>Abr</th><th>May</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th><th>Ene</th></tr></thead>
+<table class="tabla-meses" id="gas-tabla">
+<thead><tr><th></th><th>Mes 1</th><th>Mes 2</th><th>Mes 3</th><th>Mes 4</th><th>Mes 5</th><th>Mes 6</th><th>Mes 7</th><th>Mes 8</th><th>Mes 9</th><th>Mes 10</th><th>Mes 11</th><th>Mes 12</th></tr></thead>
 <tbody>
 <tr><td><strong>Consumo (kWh)</strong></td><td><input type="number" id="gas-kwh-0" step="0.01"></td><td><input type="number" id="gas-kwh-1" step="0.01"></td><td><input type="number" id="gas-kwh-2" step="0.01"></td><td><input type="number" id="gas-kwh-3" step="0.01"></td><td><input type="number" id="gas-kwh-4" step="0.01"></td><td><input type="number" id="gas-kwh-5" step="0.01"></td><td><input type="number" id="gas-kwh-6" step="0.01"></td><td><input type="number" id="gas-kwh-7" step="0.01"></td><td><input type="number" id="gas-kwh-8" step="0.01"></td><td><input type="number" id="gas-kwh-9" step="0.01"></td><td><input type="number" id="gas-kwh-10" step="0.01"></td><td><input type="number" id="gas-kwh-11" step="0.01"></td></tr>
 </tbody>
@@ -281,6 +285,8 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 <div class="tabla-actions">
 <button class="btn-tabla btn-default" onclick="usarDefaults('gas')">📋 Usar consumos por defecto</button>
 <button class="btn-tabla btn-paste" onclick="abrirModalPaste('gas')">📥 Pegar datos</button>
+<button class="btn-tabla" style="background:#4caf50;color:#fff" onclick="copiarTabla('gas')">📋 Copiar tabla</button>
+<button class="btn-tabla" style="background:#1976d2;color:#fff" onclick="window.open('https://sheets.new/','_blank')">📊 Abrir Sheets</button>
 </div>
 </div>
 
@@ -321,7 +327,14 @@ small{display:block;margin-top:5px;color:#666;font-size:.85em}
 
 <!-- TAB T3 -->
 <div id="tab-t3" class="tab-content">
-<div class="info-text">📌 T3: Comparación por mes seleccionado (sin histórico). Elige tu mes de mayor consumo para mejor estimación.</div>
+<div class="mode-toggle">
+<button class="mode-btn active" onclick="cambiarModo('t3','mes')">Comparar 1 mes/factura</button>
+<button class="mode-btn" onclick="cambiarModo('t3','varios')">Comparar varios meses</button>
+</div>
+
+<!-- Modo un mes -->
+<div id="t3-modo-mes">
+<div class="info-text">📌 T3: Comparación por mes seleccionado. Elige tu mes de mayor consumo para mejor estimación.</div>
 <div class="form-group" style="max-width:300px;margin:0 auto 20px">
 <label>📅 Mes de Comparación</label>
 <select id="t3-mes">
@@ -393,6 +406,30 @@ Precio P2: 0,140 €/kWh
 </div>
 </div>
 
+<!-- Modo varios meses -->
+<div id="t3-modo-varios" class="hidden">
+<div class="paste-info">💡 Introduce las potencias y precios fijos una sola vez. Los consumos (kWh) varían mensualmente.</div>
+<div class="tabla-container">
+<span class="power-group-title">📊 Consumos T3 - Últimos 12 meses</span>
+<table class="tabla-meses" id="t3-tabla">
+<thead><tr><th>Periodo</th><th>kW</th><th>€/kW/día</th><th>Mes 1</th><th>Mes 2</th><th>Mes 3</th><th>Mes 4</th><th>Mes 5</th><th>Mes 6</th><th>Mes 7</th><th>Mes 8</th><th>Mes 9</th><th>Mes 10</th><th>Mes 11</th><th>Mes 12</th><th>€/kWh</th></tr></thead>
+<tbody>
+<tr><td><strong>P1</strong></td><td><input type="number" id="t3-p1-kw" step="0.01" placeholder="kW"></td><td><input type="number" id="t3-p1-precio-kw" step="0.001" placeholder="€/kW/día"></td><td><input type="number" id="t3-p1-kwh-0" step="0.01"></td><td><input type="number" id="t3-p1-kwh-1" step="0.01"></td><td><input type="number" id="t3-p1-kwh-2" step="0.01"></td><td><input type="number" id="t3-p1-kwh-3" step="0.01"></td><td><input type="number" id="t3-p1-kwh-4" step="0.01"></td><td><input type="number" id="t3-p1-kwh-5" step="0.01"></td><td><input type="number" id="t3-p1-kwh-6" step="0.01"></td><td><input type="number" id="t3-p1-kwh-7" step="0.01"></td><td><input type="number" id="t3-p1-kwh-8" step="0.01"></td><td><input type="number" id="t3-p1-kwh-9" step="0.01"></td><td><input type="number" id="t3-p1-kwh-10" step="0.01"></td><td><input type="number" id="t3-p1-kwh-11" step="0.01"></td><td><input type="number" id="t3-p1-energia" step="0.001" placeholder="€/kWh"></td></tr>
+<tr><td><strong>P2</strong></td><td><input type="number" id="t3-p2-kw" step="0.01" placeholder="kW"></td><td><input type="number" id="t3-p2-precio-kw" step="0.001" placeholder="€/kW/día"></td><td><input type="number" id="t3-p2-kwh-0" step="0.01"></td><td><input type="number" id="t3-p2-kwh-1" step="0.01"></td><td><input type="number" id="t3-p2-kwh-2" step="0.01"></td><td><input type="number" id="t3-p2-kwh-3" step="0.01"></td><td><input type="number" id="t3-p2-kwh-4" step="0.01"></td><td><input type="number" id="t3-p2-kwh-5" step="0.01"></td><td><input type="number" id="t3-p2-kwh-6" step="0.01"></td><td><input type="number" id="t3-p2-kwh-7" step="0.01"></td><td><input type="number" id="t3-p2-kwh-8" step="0.01"></td><td><input type="number" id="t3-p2-kwh-9" step="0.01"></td><td><input type="number" id="t3-p2-kwh-10" step="0.01"></td><td><input type="number" id="t3-p2-kwh-11" step="0.01"></td><td><input type="number" id="t3-p2-energia" step="0.001" placeholder="€/kWh"></td></tr>
+<tr><td><strong>P3</strong></td><td><input type="number" id="t3-p3-kw" step="0.01" placeholder="kW"></td><td><input type="number" id="t3-p3-precio-kw" step="0.001" placeholder="€/kW/día"></td><td><input type="number" id="t3-p3-kwh-0" step="0.01"></td><td><input type="number" id="t3-p3-kwh-1" step="0.01"></td><td><input type="number" id="t3-p3-kwh-2" step="0.01"></td><td><input type="number" id="t3-p3-kwh-3" step="0.01"></td><td><input type="number" id="t3-p3-kwh-4" step="0.01"></td><td><input type="number" id="t3-p3-kwh-5" step="0.01"></td><td><input type="number" id="t3-p3-kwh-6" step="0.01"></td><td><input type="number" id="t3-p3-kwh-7" step="0.01"></td><td><input type="number" id="t3-p3-kwh-8" step="0.01"></td><td><input type="number" id="t3-p3-kwh-9" step="0.01"></td><td><input type="number" id="t3-p3-kwh-10" step="0.01"></td><td><input type="number" id="t3-p3-kwh-11" step="0.01"></td><td><input type="number" id="t3-p3-energia" step="0.001" placeholder="€/kWh"></td></tr>
+<tr><td><strong>P4</strong></td><td><input type="number" id="t3-p4-kw" step="0.01" placeholder="kW"></td><td><input type="number" id="t3-p4-precio-kw" step="0.001" placeholder="€/kW/día"></td><td><input type="number" id="t3-p4-kwh-0" step="0.01"></td><td><input type="number" id="t3-p4-kwh-1" step="0.01"></td><td><input type="number" id="t3-p4-kwh-2" step="0.01"></td><td><input type="number" id="t3-p4-kwh-3" step="0.01"></td><td><input type="number" id="t3-p4-kwh-4" step="0.01"></td><td><input type="number" id="t3-p4-kwh-5" step="0.01"></td><td><input type="number" id="t3-p4-kwh-6" step="0.01"></td><td><input type="number" id="t3-p4-kwh-7" step="0.01"></td><td><input type="number" id="t3-p4-kwh-8" step="0.01"></td><td><input type="number" id="t3-p4-kwh-9" step="0.01"></td><td><input type="number" id="t3-p4-kwh-10" step="0.01"></td><td><input type="number" id="t3-p4-kwh-11" step="0.01"></td><td><input type="number" id="t3-p4-energia" step="0.001" placeholder="€/kWh"></td></tr>
+<tr><td><strong>P5</strong></td><td><input type="number" id="t3-p5-kw" step="0.01" placeholder="kW"></td><td><input type="number" id="t3-p5-precio-kw" step="0.001" placeholder="€/kW/día"></td><td><input type="number" id="t3-p5-kwh-0" step="0.01"></td><td><input type="number" id="t3-p5-kwh-1" step="0.01"></td><td><input type="number" id="t3-p5-kwh-2" step="0.01"></td><td><input type="number" id="t3-p5-kwh-3" step="0.01"></td><td><input type="number" id="t3-p5-kwh-4" step="0.01"></td><td><input type="number" id="t3-p5-kwh-5" step="0.01"></td><td><input type="number" id="t3-p5-kwh-6" step="0.01"></td><td><input type="number" id="t3-p5-kwh-7" step="0.01"></td><td><input type="number" id="t3-p5-kwh-8" step="0.01"></td><td><input type="number" id="t3-p5-kwh-9" step="0.01"></td><td><input type="number" id="t3-p5-kwh-10" step="0.01"></td><td><input type="number" id="t3-p5-kwh-11" step="0.01"></td><td><input type="number" id="t3-p5-energia" step="0.001" placeholder="€/kWh"></td></tr>
+<tr><td><strong>P6</strong></td><td><input type="number" id="t3-p6-kw" step="0.01" placeholder="kW"></td><td><input type="number" id="t3-p6-precio-kw" step="0.001" placeholder="€/kW/día"></td><td><input type="number" id="t3-p6-kwh-0" step="0.01"></td><td><input type="number" id="t3-p6-kwh-1" step="0.01"></td><td><input type="number" id="t3-p6-kwh-2" step="0.01"></td><td><input type="number" id="t3-p6-kwh-3" step="0.01"></td><td><input type="number" id="t3-p6-kwh-4" step="0.01"></td><td><input type="number" id="t3-p6-kwh-5" step="0.01"></td><td><input type="number" id="t3-p6-kwh-6" step="0.01"></td><td><input type="number" id="t3-p6-kwh-7" step="0.01"></td><td><input type="number" id="t3-p6-kwh-8" step="0.01"></td><td><input type="number" id="t3-p6-kwh-9" step="0.01"></td><td><input type="number" id="t3-p6-kwh-10" step="0.01"></td><td><input type="number" id="t3-p6-kwh-11" step="0.01"></td><td><input type="number" id="t3-p6-energia" step="0.001" placeholder="€/kWh"></td></tr>
+</tbody>
+</table>
+<div class="tabla-actions">
+<button class="btn-tabla btn-default" onclick="copiarTabla('t3')">📋 Copiar tabla</button>
+<button class="btn-tabla" style="background:#1976d2;color:#fff" onclick="window.open('https://sheets.new/','_blank')">📊 Abrir Sheets</button>
+</div>
+</div>
+</div>
+</div>
+
 <button class="calculate-btn" onclick="calcular()">📊 CALCULAR Y COMPARAR</button>
 
 <div id="results" class="results hidden"></div>
@@ -437,10 +474,54 @@ const diasMes=[31,28,31,30,31,30,31,31,30,31,30,31];
 let tabActual='t2';
 let modoT2='mes';
 let modoGas='mes';
+let modoT3='mes';
 
-window.addEventListener('DOMContentLoaded',()=>{cargarDatos();mostrarHistorico()});
+window.addEventListener('DOMContentLoaded',()=>{cargarDatos();mostrarHistorico();actualizarHeadersMeses()});
 
 let tipoActualPaste='';
+
+function generarMesesDinamicos(){
+const ahora=new Date();
+const meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const resultado=[];
+for(let i=11;i>=0;i--){
+const fecha=new Date(ahora.getFullYear(),ahora.getMonth()-i,1);
+const mesIndex=fecha.getMonth();
+const año=fecha.getFullYear();
+resultado.push({nombre:meses[mesIndex],numero:mesIndex,año:año,display:`${meses[mesIndex]} ${año}`});
+}
+return resultado;
+}
+
+function actualizarHeadersMeses(){
+const mesesDin=generarMesesDinamicos();
+const headersT2=document.querySelectorAll('#t2-tabla-meses thead th');
+const headersGas=document.querySelectorAll('#gas-tabla-meses thead th');
+mesesDin.forEach((mes,idx)=>{
+if(headersT2[idx+1])headersT2[idx+1].textContent=mes.display;
+if(headersGas[idx+1])headersGas[idx+1].textContent=mes.display;
+});
+}
+
+function copiarTabla(tipo){
+let contenido='';
+if(tipo==='t2'){
+const headers=['','Punta (kWh)','Llano (kWh)','Valle (kWh)'];
+const meses=generarMesesDinamicos();
+contenido=headers.join('\t')+'\n';
+meses.forEach(mes=>contenido+=mes.display+'\t\t\t\n');
+contenido+='\n'+meses.forEach(mes=>'').join('\t');
+}else if(tipo==='gas'){
+const meses=generarMesesDinamicos();
+contenido='Mes\tConsumo (kWh)\n';
+meses.forEach(mes=>contenido+=mes.display+'\t\n');
+}else if(tipo==='t3'){
+const meses=generarMesesDinamicos();
+contenido='Periodo\tkW\t€/kW/día\t'+meses.map(m=>m.display).join('\t')+'\t€/kWh\n';
+['P1','P2','P3','P4','P5','P6'].forEach(p=>contenido+=p+'\t\t\t'+meses.map(m=>'').join('\t')+'\t\n');
+}
+navigator.clipboard.writeText(contenido).then(()=>alert('✅ Tabla copiada')).catch(()=>alert('❌ Error al copiar'));
+}
 
 function abrirModalPaste(tipo){
 tipoActualPaste=tipo;
@@ -567,7 +648,7 @@ document.getElementById('t2-tabla-meses').classList.add('hidden');
 document.getElementById('t2-consumo-mes').classList.add('hidden');
 document.getElementById('t2-tabla-meses').classList.remove('hidden');
 }
-}else{
+}else if(tipo==='gas'){
 modoGas=modo;
 document.querySelectorAll('#tab-gas .mode-btn').forEach(b=>b.classList.remove('active'));
 event.target.classList.add('active');
@@ -577,6 +658,17 @@ document.getElementById('gas-tabla-meses').classList.add('hidden');
 }else{
 document.getElementById('gas-consumo-mes').classList.add('hidden');
 document.getElementById('gas-tabla-meses').classList.remove('hidden');
+}
+}else if(tipo==='t3'){
+modoT3=modo;
+document.querySelectorAll('#tab-t3 .mode-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+if(modo==='mes'){
+document.getElementById('t3-modo-mes').classList.remove('hidden');
+document.getElementById('t3-modo-varios').classList.add('hidden');
+}else{
+document.getElementById('t3-modo-mes').classList.add('hidden');
+document.getElementById('t3-modo-varios').classList.remove('hidden');
 }
 }
 }
@@ -829,7 +921,7 @@ totalNueva+=kwh*precVarN+precFijoN*consumosGasDefault.dias[i];
 datosUsados=`<p><strong>Consumo anual:</strong> ${totKwh.toFixed(0)} kWh</p>`;
 }
 
-}else{
+}else if(modoT3==='mes'){
 nombreNueva=document.getElementById('t3-nueva-nombre').value||'Nueva T3';
 const textoA=document.getElementById('t3-actual-potencias').value;
 const textoN=document.getElementById('t3-nueva-potencias').value;
@@ -863,6 +955,35 @@ const consumoEst=500;
 totalActual+=consumoEst*precEnA;
 totalNueva+=consumoEst*precEnN;
 datosUsados=`<p><strong>Consumo estimado:</strong> ${consumoEst} kWh</p>`;
+}else{
+nombreNueva=document.getElementById('t3-nueva-nombre').value||'Nueva T3';
+let completoA=true,completoN=true;
+for(let p=1;p<=6;p++){
+if(!document.getElementById(`t3-p${p}-kw`).value||!document.getElementById(`t3-p${p}-precio-kw`).value||!document.getElementById(`t3-p${p}-energia`).value){completoA=false}
+if(!document.getElementById(`t3-p${p}-kw`).value||!document.getElementById(`t3-p${p}-precio-kw`).value||!document.getElementById(`t3-p${p}-energia`).value){completoN=false}
+}
+if(!completoA||!completoN){alert('⚠️ Completa potencias y precios en T3 varios meses');return}
+
+const mesesDin=generarMesesDinamicos();
+for(let p=1;p<=6;p++){
+const kw=parseFloat(document.getElementById(`t3-p${p}-kw`).value);
+const precioKw=parseFloat(document.getElementById(`t3-p${p}-precio-kw`).value);
+const precioEn=parseFloat(document.getElementById(`t3-p${p}-energia`).value);
+const dtoAVal=parseFloat(document.getElementById('t3-actual-dto').value)||0;
+const dtoNVal=parseFloat(document.getElementById('t3-nueva-dto').value)||0;
+
+for(let m=0;m<12;m++){
+const kwhA=parseFloat(document.getElementById(`t3-p${p}-kwh-${m}`).value)||0;
+const kwhN=parseFloat(document.getElementById(`t3-p${p}-kwh-${m}`).value)||0;
+const dias=mesesDin[m].numero===1?28:(mesesDin[m].numero%2===0&&mesesDin[m].numero<=7||mesesDin[m].numero%2===1&&mesesDin[m].numero>7)?31:30;
+const precEnA=aplicarDescuento(precioEn,dtoAVal);
+const precEnN=aplicarDescuento(precioEn,dtoNVal);
+
+totalActual+=(kw*precioKw*dias)+(kwhA*precEnA);
+totalNueva+=(kw*precioKw*dias)+(kwhN*precEnN);
+}
+}
+datosUsados=`<p><strong>Consumo anual T3:</strong> Tabla de 12 meses</p>`;
 }
 
 guardarDatos();
