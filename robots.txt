@@ -1,3 +1,25 @@
+# Global access
 User-agent: *
 Allow: /
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+# Common Crawl (datasets usados por muchos LLMs)
+User-agent: CCBot
+Allow: /
+
+# Google AI systems
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://comparadortarifasluzygas.es/sitemap.xml
