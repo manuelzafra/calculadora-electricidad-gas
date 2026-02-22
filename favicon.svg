@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="200" fill="url(#grad)" rx="40"/>
+
+  <!-- Lightning bolt (electricidad) -->
+  <path d="M 70 50 L 100 100 L 85 100 L 115 170 L 60 110 L 75 110 Z" fill="#FFD700" opacity="0.9"/>
+
+  <!-- Flame (gas) -->
+  <path d="M 130 120 Q 125 100 135 85 Q 145 100 140 120 Q 145 135 135 145 Q 125 135 130 120 Z" fill="#FF6B6B" opacity="0.9"/>
+
+  <!-- Central comparison symbol -->
+  <circle cx="100" cy="100" r="50" fill="none" stroke="#fff" stroke-width="2" opacity="0.5"/>
+  <text x="100" y="110" font-size="40" font-weight="bold" text-anchor="middle" fill="#fff" opacity="0.8">vs</text>
+</svg>
