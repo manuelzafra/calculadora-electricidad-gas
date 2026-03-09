@@ -14,12 +14,12 @@
 <meta property="og:url" content="https://comparadortarifasluzygas.es/">
 <meta property="og:title" content="Comparador de Tarifas de Luz y Gas - Ahorra en Electricidad">
 <meta property="og:description" content="Compara tarifas de electricidad T2, T3 y gas RL1. Calcula tu ahorro mensual y anual. Herramienta gratuita y sin registro.">
-<meta property="og:image" content="https://comparadortarifasluzygas.es/favicon.svg">
+<meta property="og:image" content="https://comparadortarifasluzygas.es/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://comparadortarifasluzygas.es/">
 <meta name="twitter:title" content="Comparador de Tarifas de Luz y Gas - Ahorra en Electricidad">
 <meta name="twitter:description" content="Compara tarifas de electricidad T2, T3 y gas RL1. Calcula tu ahorro mensual y anual.">
-<meta name="twitter:image" content="https://comparadortarifasluzygas.es/favicon.svg">
+<meta name="twitter:image" content="https://comparadortarifasluzygas.es/og-image.png">
 <meta name="google-adsense-account" content="ca-pub-4639913934838843">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -32,6 +32,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4639913934838843"
      crossorigin="anonymous"></script>
 <!-- End Google Adsense -->
+<link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
@@ -117,10 +120,90 @@ tailwind.config = {
 
   /* Scroll pb for bottom nav */
   main { padding-bottom: 96px; }
+
+  /* Browser-tab style for tarifa selector */
+  .tab-card { position: relative; }
+  .tab-card.active-tab { color: #0a1a0e; border-bottom-color: #13ec5b; }
+  .tab-card:not(.active-tab) { color: #94a3b8; border-bottom-color: transparent; }
+  .tab-card:not(.active-tab):hover { color: #64748b; }
+
+  /* Actual/Nueva sub-tabs */
+  .subtab-btn { position: relative; padding: 10px 16px; font-size: 0.875rem; font-weight: 600; border-bottom: 3px solid transparent; color: #94a3b8; transition: all 0.2s; cursor: pointer; }
+  .subtab-btn.active-subtab { color: #0a1a0e; border-bottom-color: #13ec5b; }
+  .subtab-btn:not(.active-subtab):hover { color: #64748b; }
+
+  /* Lock overlay */
+  .locked-overlay { position: relative; }
+  .locked-overlay::after { content: ''; position: absolute; inset: 0; background: rgba(248,250,252,0.6); border-radius: 12px; pointer-events: none; }
+  .locked-overlay input, .locked-overlay select, .locked-overlay textarea { pointer-events: none; opacity: 0.6; }
+
+  /* Colorblind-safe indicators: use blue for savings, amber for loss (not red/green) */
+  .savings-positive { color: #2563eb; } /* blue-600 */
+  .savings-negative { color: #d97706; } /* amber-600 */
+  .savings-positive-bg { background: #dbeafe; border-color: #93c5fd; } /* blue-100/300 */
+  .savings-negative-bg { background: #fef3c7; border-color: #fcd34d; } /* amber-100/300 */
+
+  /* AdSense slots: collapse when empty */
+  .adsense-slot:empty, .adsense-slot:not(:has(ins)) { display: none !important; }
 </style>
 <!-- Overtracking Pixel Code -->
 <script defer src="https://cdn.overtracking.com/t/teRgTKSeAxuEgifDe/"></script>
 <!-- End Overtracking Pixel Code -->
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Comparador de Tarifas de Luz y Gas",
+      "url": "https://comparadortarifasluzygas.es/",
+      "description": "Comparador gratuito de tarifas de electricidad (T2, T3) y gas (RL1) en España. Calcula tu ahorro mensual y anual.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "LIVINK"
+      },
+      "inLanguage": "es"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué tarifas puedo comparar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Puedes comparar tarifas de electricidad T2 (doméstica, hasta 15 kW), T3 (industrial, más de 15 kW con 6 periodos) y gas RL1 (consumo doméstico)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿La comparación incluye IVA e impuestos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. La comparación calcula potencia y energía. No incluye impuesto eléctrico (5,11%), alquiler de equipos, ni IVA (21%), ya que estos costes son iguales en ambas tarifas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Necesito registrarme para usar el comparador?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. El comparador es completamente gratuito y sin registro. Tus datos se guardan solo en tu navegador (localStorage)."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body class="bg-bg-light font-display text-text-dark antialiased">
 <!-- Google Tag Manager (noscript) -->
@@ -129,16 +212,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!-- ===== HEADER ===== -->
-<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+<header id="header" class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
   <div class="flex items-center justify-between px-4 py-3 max-w-2xl mx-auto">
-    <div class="flex items-center gap-2">
+    <div id="header-brand" class="flex items-center gap-2">
       <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
       <div>
         <h1 class="text-sm font-bold text-text-dark leading-tight">Comparador Tarifas</h1>
         <p class="text-[10px] text-slate-500 leading-tight">Luz &amp; Gas en España</p>
       </div>
     </div>
-    <button onclick="toggleHistorico()" class="flex items-center gap-1 text-xs font-semibold text-slate-600 bg-slate-100 rounded-full px-3 py-1.5 active:scale-95 transition-transform">
+    <button id="btn-historial" onclick="toggleHistorico()" class="flex items-center gap-1 text-xs font-semibold text-slate-600 bg-slate-100 rounded-full px-3 py-1.5 active:scale-95 transition-transform">
       <span class="material-symbols-outlined text-base">history</span>
       Historial
     </button>
@@ -146,42 +229,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <!-- ADSENSE SLOT: banner-top (responsive 728x90 / 320x50) -->
-<div class="bg-slate-100 border-b border-slate-200 flex items-center justify-center min-h-[50px] text-[10px] text-slate-400 px-4">
-  <!-- ADSENSE SLOT: TOP BANNER -->
+<div id="adsense-top" class="adsense-slot border-b border-slate-200" style="display:none">
   <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
-  [AdSense Banner Top — 320x50 mobile / 728x90 desktop]
 </div>
 
 <main class="max-w-2xl mx-auto w-full px-4 pt-5 space-y-5">
 
   <!-- ===== HERO / INTRO ===== -->
-  <section class="bg-bg-dark rounded-2xl p-5 text-white">
+  <section id="hero-section" class="bg-bg-dark rounded-2xl p-5 text-white">
     <p class="text-primary text-xs font-bold uppercase tracking-widest mb-1">Gratis · Sin registro</p>
-    <h2 class="text-xl font-bold leading-snug mb-1">¿Puedes ahorrar en tu factura?</h2>
+    <h2 class="text-2xl font-bold leading-snug mb-1">¿Puedes ahorrar en tu factura?</h2>
     <p class="text-slate-400 text-sm">Introduce los precios de tu tarifa actual y de la nueva oferta. Te decimos cuánto ahorras al instante.</p>
   </section>
 
-  <!-- ===== TARIFA SELECTOR (Bottom Nav equivalent as top cards on mobile) ===== -->
-  <section>
-    <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Selecciona tu tipo de tarifa</p>
-    <div class="grid grid-cols-3 gap-2">
-      <!-- T2 -->
+  <!-- ===== TARIFA SELECTOR (browser-tab style) ===== -->
+  <section id="tarifa-selector">
+    <h2 id="tarifa-selector-title" class="text-base font-bold text-text-dark mb-3">¿Qué quieres comparar?</h2>
+    <div class="relative flex border-b-2 border-slate-200">
       <button onclick="cambiarTab('t2')" id="card-t2"
-        class="tab-card flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-primary bg-primary/10 transition-all active:scale-95 min-h-[80px] justify-center">
-        <span class="material-symbols-outlined text-yellow-500 text-2xl">bolt</span>
-        <span class="text-[11px] font-bold text-center leading-tight">Electricidad T2<br><span class="text-[10px] font-normal text-slate-500">&lt;15 kW</span></span>
+        class="tab-card flex items-center gap-2 flex-1 px-3 py-3 text-sm font-bold border-b-3 border-primary text-text-dark transition-all">
+        <span class="material-symbols-outlined text-yellow-500 text-lg">bolt</span>
+        <span class="leading-tight">T2 Luz <span class="hidden sm:inline text-xs font-normal text-slate-500">&lt;15kW</span></span>
       </button>
-      <!-- GAS -->
       <button onclick="cambiarTab('gas')" id="card-gas"
-        class="tab-card flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-transparent bg-white transition-all active:scale-95 min-h-[80px] justify-center">
-        <span class="material-symbols-outlined text-orange-500 text-2xl">local_fire_department</span>
-        <span class="text-[11px] font-bold text-center leading-tight">Gas RL1<br><span class="text-[10px] font-normal text-slate-500">Doméstico</span></span>
+        class="tab-card flex items-center gap-2 flex-1 px-3 py-3 text-sm font-bold border-b-3 border-transparent text-slate-400 transition-all">
+        <span class="material-symbols-outlined text-orange-500 text-lg">local_fire_department</span>
+        <span class="leading-tight">Gas RL1</span>
       </button>
-      <!-- T3 -->
       <button onclick="cambiarTab('t3')" id="card-t3"
-        class="tab-card flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-transparent bg-white transition-all active:scale-95 min-h-[80px] justify-center">
-        <span class="material-symbols-outlined text-blue-500 text-2xl">factory</span>
-        <span class="text-[11px] font-bold text-center leading-tight">Electricidad T3<br><span class="text-[10px] font-normal text-slate-500">&gt;15 kW</span></span>
+        class="tab-card flex items-center gap-2 flex-1 px-3 py-3 text-sm font-bold border-b-3 border-transparent text-slate-400 transition-all">
+        <span class="material-symbols-outlined text-blue-500 text-lg">factory</span>
+        <span class="leading-tight">T3 Luz <span class="hidden sm:inline text-xs font-normal text-slate-500">&gt;15kW</span></span>
       </button>
     </div>
   </section>
@@ -246,152 +324,169 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <!-- Oferta Actual T2 -->
-    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
-      <div class="flex items-center gap-2 bg-slate-50 border-b border-slate-200 px-4 py-3">
-        <span class="material-symbols-outlined text-slate-500 text-xl">home</span>
-        <h3 class="font-bold text-sm">Tarifa Actual</h3>
+    <!-- Potencia compartida T2 (se rellena una sola vez) -->
+    <div id="t2-potencia-compartida" class="bg-orange-50 border border-orange-200 rounded-xl p-4">
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-sm font-bold text-orange-700 flex items-center gap-1">
+          <span class="material-symbols-outlined text-base">electric_meter</span>
+          Potencia contratada
+        </p>
+        <span class="text-xs text-orange-500">Se aplica a ambas tarifas</span>
       </div>
-      <div class="p-4 space-y-4">
-        <!-- Nombre compañía -->
+      <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía actual</label>
-          <input type="text" id="t2-actual-nombre" placeholder="Ej: Iberdrola"
-            class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Punta (kW)</label>
+          <input type="number" id="t2-pot-punta-kw" inputmode="decimal" step="0.001" placeholder="2.2"
+            class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center bg-white">
         </div>
-        <!-- Potencias -->
-        <div class="bg-orange-50 border border-orange-200 rounded-xl p-3">
-          <p class="text-xs font-bold text-orange-700 mb-3">Potencia instalada</p>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Valle (kW)</label>
+          <input type="number" id="t2-pot-valle-kw" inputmode="decimal" step="0.001" placeholder="6.6"
+            class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center bg-white">
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-tabs: Tu tarifa / Nueva oferta -->
+    <div id="t2-subtabs" class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div class="flex border-b border-slate-200">
+        <button onclick="cambiarSubtab('t2','actual')" id="t2-subtab-actual"
+          class="subtab-btn flex-1 active-subtab flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">home</span> Tu tarifa
+        </button>
+        <button onclick="cambiarSubtab('t2','nueva')" id="t2-subtab-nueva"
+          class="subtab-btn flex-1 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">stars</span> Nueva oferta
+        </button>
+      </div>
+
+      <!-- Panel: Tu tarifa actual -->
+      <div id="t2-panel-actual" class="p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-semibold text-slate-500">Compañía actual</label>
+          <button id="t2-lock-btn" onclick="toggleLock('t2')" class="flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-primary transition-colors" title="Bloquear tarifa actual">
+            <span class="material-symbols-outlined text-base" id="t2-lock-icon">lock_open</span>
+            <span id="t2-lock-text">Bloquear</span>
+          </button>
+        </div>
+        <input type="text" id="t2-actual-nombre" placeholder="Ej: Iberdrola"
+          class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+        <!-- Precios potencia -->
+        <div id="t2-actual-precios-pot" class="bg-orange-50/50 border border-orange-100 rounded-xl p-3">
+          <p class="text-xs font-bold text-orange-700 mb-2">Precio potencia</p>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Punta (kW)</label>
-              <input type="number" id="t2-actual-pot-punta-kw" inputmode="decimal" step="0.001" placeholder="2.2"
-                class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1 mt-2">Precio punta</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Punta (€/kW)</label>
               <input type="number" id="t2-actual-pot-punta-precio" inputmode="decimal" step="0.001" placeholder="0.042"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
               <div class="flex gap-2 mt-1">
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-actual-unit-punta" value="dia" checked class="accent-primary"> €/kW/día</label>
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-actual-unit-punta" value="ano" class="accent-primary"> €/kW/año</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-actual-unit-punta" value="dia" checked class="accent-primary w-3.5 h-3.5"> €/kW/día</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-actual-unit-punta" value="ano" class="accent-primary w-3.5 h-3.5"> €/kW/año</label>
               </div>
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Valle (kW)</label>
-              <input type="number" id="t2-actual-pot-valle-kw" inputmode="decimal" step="0.001" placeholder="6.6"
-                class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1 mt-2">Precio valle</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Valle (€/kW)</label>
               <input type="number" id="t2-actual-pot-valle-precio" inputmode="decimal" step="0.001" placeholder="0.018"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
               <div class="flex gap-2 mt-1">
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-actual-unit-valle" value="dia" checked class="accent-primary"> €/kW/día</label>
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-actual-unit-valle" value="ano" class="accent-primary"> €/kW/año</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-actual-unit-valle" value="dia" checked class="accent-primary w-3.5 h-3.5"> €/kW/día</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-actual-unit-valle" value="ano" class="accent-primary w-3.5 h-3.5"> €/kW/año</label>
               </div>
             </div>
           </div>
         </div>
         <!-- Energía -->
-        <div class="bg-green-50 border border-green-200 rounded-xl p-3">
-          <p class="text-xs font-bold text-green-700 mb-3">Precio energía (€/kWh)</p>
+        <div id="t2-actual-precios-en" class="bg-green-50 border border-green-200 rounded-xl p-3">
+          <p class="text-xs font-bold text-green-700 mb-2">Precio energía (€/kWh)</p>
           <div class="grid grid-cols-3 gap-2">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Punta</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Punta</label>
               <input type="number" id="t2-actual-punta" inputmode="decimal" step="0.001" placeholder="0.15"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Llano</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Llano</label>
               <input type="number" id="t2-actual-llano" inputmode="decimal" step="0.001" placeholder="0.12"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Valle</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Valle</label>
               <input type="number" id="t2-actual-valle" inputmode="decimal" step="0.001" placeholder="0.08"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
             </div>
           </div>
           <button onclick="copiarTarifaPlanaT2('actual')"
-            class="mt-2 text-[11px] font-semibold text-green-700 underline underline-offset-2 active:opacity-70">
-            Copiar precio punta en llano y valle (tarifa plana)
+            class="mt-2 text-xs font-semibold text-green-700 underline underline-offset-2 active:opacity-70">
+            Copiar punta a llano y valle (tarifa plana)
           </button>
         </div>
         <!-- Descuento -->
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+        <div id="t2-actual-descuento" class="bg-blue-50 border border-blue-200 rounded-xl p-3">
           <label class="block text-xs font-bold text-blue-700 mb-1">Descuento en energía (%)</label>
           <input type="number" id="t2-actual-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
         </div>
       </div>
-    </div>
 
-    <!-- Oferta Nueva T2 -->
-    <div class="bg-white rounded-xl border-2 border-primary overflow-hidden">
-      <div class="flex items-center justify-between bg-primary/10 border-b border-primary/20 px-4 py-3">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-xl">stars</span>
-          <h3 class="font-bold text-sm">Oferta Nueva</h3>
+      <!-- Panel: Nueva oferta -->
+      <div id="t2-panel-nueva" class="hidden p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-semibold text-slate-500">Compañía nueva</label>
+          <button onclick="resetNuevaOferta()" class="text-xs font-semibold text-red-500 border border-red-300 rounded-full px-2.5 py-1 active:scale-95">Limpiar</button>
         </div>
-        <button onclick="resetNuevaOferta()" class="text-[11px] font-semibold text-red-500 border border-red-300 rounded-full px-2 py-1 active:scale-95">Limpiar</button>
-      </div>
-      <div class="p-4 space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía nueva</label>
-          <input type="text" id="t2-nueva-nombre" placeholder="Ej: Holaluz"
-            class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
-        </div>
-        <div class="bg-orange-50 border border-orange-200 rounded-xl p-3">
-          <p class="text-xs font-bold text-orange-700 mb-3">Potencia instalada</p>
+        <input type="text" id="t2-nueva-nombre" placeholder="Ej: Holaluz"
+          class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+        <!-- Precios potencia -->
+        <div id="t2-nueva-precios-pot" class="bg-orange-50/50 border border-orange-100 rounded-xl p-3">
+          <p class="text-xs font-bold text-orange-700 mb-2">Precio potencia</p>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Punta (kW)</label>
-              <input type="number" id="t2-nueva-pot-punta-kw" inputmode="decimal" step="0.001" placeholder="2.2"
-                class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1 mt-2">Precio punta</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Punta (€/kW)</label>
               <input type="number" id="t2-nueva-pot-punta-precio" inputmode="decimal" step="0.001" placeholder="0.040"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
               <div class="flex gap-2 mt-1">
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-nueva-unit-punta" value="dia" checked class="accent-primary"> €/kW/día</label>
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-nueva-unit-punta" value="ano" class="accent-primary"> €/kW/año</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-nueva-unit-punta" value="dia" checked class="accent-primary w-3.5 h-3.5"> €/kW/día</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-nueva-unit-punta" value="ano" class="accent-primary w-3.5 h-3.5"> €/kW/año</label>
               </div>
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Valle (kW)</label>
-              <input type="number" id="t2-nueva-pot-valle-kw" inputmode="decimal" step="0.001" placeholder="6.6"
-                class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1 mt-2">Precio valle</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Valle (€/kW)</label>
               <input type="number" id="t2-nueva-pot-valle-precio" inputmode="decimal" step="0.001" placeholder="0.016"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
               <div class="flex gap-2 mt-1">
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-nueva-unit-valle" value="dia" checked class="accent-primary"> €/kW/día</label>
-                <label class="flex items-center gap-1 text-[10px] cursor-pointer"><input type="radio" name="t2-nueva-unit-valle" value="ano" class="accent-primary"> €/kW/año</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-nueva-unit-valle" value="dia" checked class="accent-primary w-3.5 h-3.5"> €/kW/día</label>
+                <label class="flex items-center gap-1 text-[11px] cursor-pointer"><input type="radio" name="t2-nueva-unit-valle" value="ano" class="accent-primary w-3.5 h-3.5"> €/kW/año</label>
               </div>
             </div>
           </div>
         </div>
-        <div class="bg-green-50 border border-green-200 rounded-xl p-3">
-          <p class="text-xs font-bold text-green-700 mb-3">Precio energía (€/kWh)</p>
+        <!-- Energía -->
+        <div id="t2-nueva-precios-en" class="bg-green-50 border border-green-200 rounded-xl p-3">
+          <p class="text-xs font-bold text-green-700 mb-2">Precio energía (€/kWh)</p>
           <div class="grid grid-cols-3 gap-2">
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Punta</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Punta</label>
               <input type="number" id="t2-nueva-punta" inputmode="decimal" step="0.001" placeholder="0.14"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Llano</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Llano</label>
               <input type="number" id="t2-nueva-llano" inputmode="decimal" step="0.001" placeholder="0.11"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-slate-500 mb-1">Valle</label>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Valle</label>
               <input type="number" id="t2-nueva-valle" inputmode="decimal" step="0.001" placeholder="0.07"
                 class="w-full border-2 border-slate-200 rounded-lg px-2 py-2.5 text-base text-center">
             </div>
           </div>
           <button onclick="copiarTarifaPlanaT2('nueva')"
-            class="mt-2 text-[11px] font-semibold text-green-700 underline underline-offset-2 active:opacity-70">
-            Copiar precio punta en llano y valle (tarifa plana)
+            class="mt-2 text-xs font-semibold text-green-700 underline underline-offset-2 active:opacity-70">
+            Copiar punta a llano y valle (tarifa plana)
           </button>
         </div>
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+        <!-- Descuento -->
+        <div id="t2-nueva-descuento" class="bg-blue-50 border border-blue-200 rounded-xl p-3">
           <label class="block text-xs font-bold text-blue-700 mb-1">Descuento en energía (%)</label>
           <input type="number" id="t2-nueva-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
@@ -444,70 +539,74 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <!-- Oferta Actual GAS -->
-    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
-      <div class="flex items-center gap-2 bg-slate-50 border-b border-slate-200 px-4 py-3">
-        <span class="material-symbols-outlined text-slate-500 text-xl">home</span>
-        <h3 class="font-bold text-sm">Tarifa Actual</h3>
+    <!-- Sub-tabs Gas: Tu tarifa / Nueva oferta -->
+    <div id="gas-subtabs" class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div class="flex border-b border-slate-200">
+        <button onclick="cambiarSubtab('gas','actual')" id="gas-subtab-actual"
+          class="subtab-btn flex-1 active-subtab flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">home</span> Tu tarifa
+        </button>
+        <button onclick="cambiarSubtab('gas','nueva')" id="gas-subtab-nueva"
+          class="subtab-btn flex-1 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">stars</span> Nueva oferta
+        </button>
       </div>
-      <div class="p-4 space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía actual</label>
-          <input type="text" id="gas-actual-nombre" placeholder="Ej: Naturgy"
-            class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+
+      <!-- Panel: Tu tarifa actual Gas -->
+      <div id="gas-panel-actual" class="p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-semibold text-slate-500">Compañía actual</label>
+          <button id="gas-lock-btn" onclick="toggleLock('gas')" class="flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-primary transition-colors" title="Bloquear tarifa actual">
+            <span class="material-symbols-outlined text-base" id="gas-lock-icon">lock_open</span>
+            <span id="gas-lock-text">Bloquear</span>
+          </button>
         </div>
-        <div>
+        <input type="text" id="gas-actual-nombre" placeholder="Ej: Naturgy"
+          class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+        <div id="gas-actual-fijo-section">
           <label class="block text-xs font-semibold text-slate-500 mb-1">Término fijo</label>
           <input type="number" id="gas-actual-fijo" inputmode="decimal" step="0.001" placeholder="0.35"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
           <div class="flex gap-4 mt-2">
-            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-actual-unit" value="dia" checked class="accent-primary"> €/día</label>
-            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-actual-unit" value="mes" class="accent-primary"> €/mes</label>
+            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-actual-unit" value="dia" checked class="accent-primary w-3.5 h-3.5"> €/día</label>
+            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-actual-unit" value="mes" class="accent-primary w-3.5 h-3.5"> €/mes</label>
           </div>
         </div>
-        <div>
+        <div id="gas-actual-variable-section">
           <label class="block text-xs font-semibold text-slate-500 mb-1">Término variable (€/kWh)</label>
           <input type="number" id="gas-actual-variable" inputmode="decimal" step="0.001" placeholder="0.05"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
         </div>
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+        <div id="gas-actual-descuento" class="bg-blue-50 border border-blue-200 rounded-xl p-3">
           <label class="block text-xs font-bold text-blue-700 mb-1">Descuento consumo (%)</label>
           <input type="number" id="gas-actual-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
         </div>
       </div>
-    </div>
 
-    <!-- Oferta Nueva GAS -->
-    <div class="bg-white rounded-xl border-2 border-primary overflow-hidden">
-      <div class="flex items-center justify-between bg-primary/10 border-b border-primary/20 px-4 py-3">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-xl">stars</span>
-          <h3 class="font-bold text-sm">Oferta Nueva</h3>
+      <!-- Panel: Nueva oferta Gas -->
+      <div id="gas-panel-nueva" class="hidden p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-semibold text-slate-500">Compañía nueva</label>
+          <button onclick="resetNuevaOferta()" class="text-xs font-semibold text-red-500 border border-red-300 rounded-full px-2.5 py-1 active:scale-95">Limpiar</button>
         </div>
-        <button onclick="resetNuevaOferta()" class="text-[11px] font-semibold text-red-500 border border-red-300 rounded-full px-2 py-1 active:scale-95">Limpiar</button>
-      </div>
-      <div class="p-4 space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía nueva</label>
-          <input type="text" id="gas-nueva-nombre" placeholder="Ej: Repsol"
-            class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
-        </div>
-        <div>
+        <input type="text" id="gas-nueva-nombre" placeholder="Ej: Repsol"
+          class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+        <div id="gas-nueva-fijo-section">
           <label class="block text-xs font-semibold text-slate-500 mb-1">Término fijo</label>
           <input type="number" id="gas-nueva-fijo" inputmode="decimal" step="0.001" placeholder="0.30"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
           <div class="flex gap-4 mt-2">
-            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-nueva-unit" value="dia" checked class="accent-primary"> €/día</label>
-            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-nueva-unit" value="mes" class="accent-primary"> €/mes</label>
+            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-nueva-unit" value="dia" checked class="accent-primary w-3.5 h-3.5"> €/día</label>
+            <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="gas-nueva-unit" value="mes" class="accent-primary w-3.5 h-3.5"> €/mes</label>
           </div>
         </div>
-        <div>
+        <div id="gas-nueva-variable-section">
           <label class="block text-xs font-semibold text-slate-500 mb-1">Término variable (€/kWh)</label>
           <input type="number" id="gas-nueva-variable" inputmode="decimal" step="0.001" placeholder="0.045"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
         </div>
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+        <div id="gas-nueva-descuento" class="bg-blue-50 border border-blue-200 rounded-xl p-3">
           <label class="block text-xs font-bold text-blue-700 mb-1">Descuento consumo (%)</label>
           <input type="number" id="gas-nueva-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
             class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
@@ -533,10 +632,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Modo mes T3 -->
     <div id="t3-modo-mes">
       <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 text-sm text-blue-800">
-        T3: comparacion por mes. Elige tu mes de mayor consumo para mejor estimacion.
+        T3: comparación por mes. Elige tu mes de mayor consumo para mejor estimación.
       </div>
       <div class="bg-white rounded-xl border border-slate-200 p-4 mb-4">
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Mes de comparacion</label>
+        <label class="block text-xs font-semibold text-slate-500 mb-1">Mes de comparación</label>
         <select id="t3-mes" class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base bg-white">
           <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
           <option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option>
@@ -553,25 +652,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="p-4 space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Compañia actual</label>
-            <input type="text" id="t3-actual-nombre" placeholder="Ej: Mi compañia"
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía actual</label>
+            <input type="text" id="t3-actual-nombre" placeholder="Ej: Mi compañía"
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega Potencias de tu Factura (P1-P6)</label>
+            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega potencias de tu factura (P1-P6)</label>
             <textarea id="t3-actual-potencias" rows="4"
               placeholder="Periodo P1 (01/12/2024 - 31/12/2024): 13,5000 kW * 0,042931 €/kW día * 31 días 17,97 €&#10;Periodo P2 ..."
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-sm font-mono"></textarea>
-            <p class="text-[11px] text-slate-400 mt-1">Se extraera kW y €/kW/dia para P1-P6.</p>
+            <p class="text-[11px] text-slate-400 mt-1">Se extraerá kW y €/kW/día para P1-P6.</p>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega Precios Energia de tu Factura (P1-P6)</label>
+            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega precios energía de tu factura (P1-P6)</label>
             <textarea id="t3-actual-energia" rows="3"
               placeholder="Precio P1: 0,150 €/kWh&#10;Precio P2: 0,140 €/kWh&#10;..."
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-sm font-mono"></textarea>
           </div>
           <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
-            <label class="block text-xs font-bold text-blue-700 mb-1">Descuento energia (%)</label>
+            <label class="block text-xs font-bold text-blue-700 mb-1">Descuento energía (%)</label>
             <input type="number" id="t3-actual-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
           </div>
@@ -589,22 +688,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="p-4 space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Compañia nueva</label>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía nueva</label>
             <input type="text" id="t3-nueva-nombre" placeholder="Ej: Oferta T3"
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega Potencias de la Oferta (P1-P6)</label>
+            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega potencias de la oferta (P1-P6)</label>
             <textarea id="t3-nueva-potencias" rows="4" placeholder="Pega aqui los datos de potencia..."
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-sm font-mono"></textarea>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega Precios Energia de la Oferta (P1-P6)</label>
+            <label class="block text-xs font-semibold text-slate-500 mb-2">Pega precios energía de la oferta (P1-P6)</label>
             <textarea id="t3-nueva-energia" rows="3" placeholder="Pega aqui los precios de energia..."
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-sm font-mono"></textarea>
           </div>
           <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
-            <label class="block text-xs font-bold text-blue-700 mb-1">Descuento energia (%)</label>
+            <label class="block text-xs font-bold text-blue-700 mb-1">Descuento energía (%)</label>
             <input type="number" id="t3-nueva-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
               class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
           </div>
@@ -613,18 +712,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div><!-- /t3-modo-mes -->
 
     <!-- Modo varios meses T3 -->
-    <div id="t3-modo-varios" class="hidden">
+    <div id="t3-modo-varios" class="hidden space-y-4">
+      <!-- Consumos mensuales (compartidos) -->
       <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <div class="flex items-center gap-2 bg-slate-50 border-b border-slate-200 px-4 py-3">
           <span class="material-symbols-outlined text-blue-500 text-xl">table_chart</span>
-          <h3 class="font-bold text-sm">T3 — 12 meses (P1-P6)</h3>
+          <h3 class="font-bold text-sm">Consumos mensuales T3 (P1-P6)</h3>
         </div>
         <div class="p-4 space-y-4">
-          <p class="text-xs text-slate-500">Introduce las potencias y precios fijos una vez. Los consumos (kWh) varian mensualmente.</p>
+          <p class="text-xs text-slate-500">Introduce los consumos (kWh) por periodo y mes. Los consumos son los mismos para ambas tarifas.</p>
           <div id="t3-tabla-container" class="space-y-3"></div>
           <div class="flex gap-2">
-            <button onclick="copiarTabla('t3')" class="flex-1 h-11 border-2 border-primary text-primary font-bold rounded-lg text-sm active:scale-95">Copiar tabla</button>
+            <button onclick="abrirModalPaste('t3')" class="flex-1 h-11 bg-primary text-text-dark font-bold rounded-lg text-sm active:scale-95">Pegar datos</button>
             <button onclick="window.open('https://sheets.new/','_blank')" class="flex-1 h-11 bg-slate-100 text-slate-700 font-bold rounded-lg text-sm active:scale-95">Abrir Sheets</button>
+          </div>
+        </div>
+      </div>
+      <!-- Tarifa Actual T3 12 meses -->
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div class="flex items-center gap-2 bg-slate-50 border-b border-slate-200 px-4 py-3">
+          <span class="material-symbols-outlined text-slate-500 text-xl">home</span>
+          <h3 class="font-bold text-sm">Tarifa Actual T3</h3>
+        </div>
+        <div class="p-4 space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía actual</label>
+            <input type="text" id="t3v-actual-nombre" placeholder="Ej: Mi compañía"
+              class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+          </div>
+          <p class="text-xs font-bold text-slate-500">Precios por periodo (P1-P6)</p>
+          <div id="t3v-actual-precios" class="space-y-2"></div>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+            <label class="block text-xs font-bold text-blue-700 mb-1">Descuento energía (%)</label>
+            <input type="number" id="t3v-actual-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
+              class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
+          </div>
+        </div>
+      </div>
+      <!-- Oferta Nueva T3 12 meses -->
+      <div class="bg-white rounded-xl border-2 border-primary overflow-hidden">
+        <div class="flex items-center justify-between bg-primary/10 border-b border-primary/20 px-4 py-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-xl">stars</span>
+            <h3 class="font-bold text-sm">Oferta Nueva T3</h3>
+          </div>
+          <button onclick="resetNuevaOferta()" class="text-[11px] font-semibold text-red-500 border border-red-300 rounded-full px-2 py-1 active:scale-95">Limpiar</button>
+        </div>
+        <div class="p-4 space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Compañía nueva</label>
+            <input type="text" id="t3v-nueva-nombre" placeholder="Ej: Oferta T3"
+              class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base">
+          </div>
+          <p class="text-xs font-bold text-slate-500">Precios por periodo (P1-P6)</p>
+          <div id="t3v-nueva-precios" class="space-y-2"></div>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+            <label class="block text-xs font-bold text-blue-700 mb-1">Descuento energía (%)</label>
+            <input type="number" id="t3v-nueva-dto" inputmode="decimal" step="0.1" placeholder="0" value="0"
+              class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base text-center">
           </div>
         </div>
       </div>
@@ -632,14 +777,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div><!-- /tab-t3 -->
 
   <!-- ===== ADSENSE entre formulario y resultados ===== -->
-  <div class="bg-slate-100 rounded-xl flex items-center justify-center min-h-[100px] text-[10px] text-slate-400">
-    <!-- ADSENSE SLOT: MID (300x250) — El mas rentable, usuario espera resultados -->
+  <div id="adsense-mid" class="adsense-slot" style="display:none">
+    <!-- ADSENSE SLOT: MID (300x250) — El más rentable, usuario espera resultados -->
     <!-- <ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins> -->
-    [AdSense 300x250 — Entre formulario y resultados]
   </div>
 
   <!-- ===== CALCULATE BUTTON ===== -->
-  <button onclick="calcular()"
+  <button id="btn-calcular" onclick="calcular()"
     class="w-full h-14 bg-primary text-text-dark font-bold text-lg rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-lg shadow-primary/30">
     <span class="material-symbols-outlined text-2xl">calculate</span>
     Calcular ahorro
@@ -650,9 +794,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ===== ADSENSE después de resultados ===== -->
   <div id="adsense-post-results" class="hidden bg-slate-100 rounded-xl flex items-center justify-center min-h-[100px] text-[10px] text-slate-400">
-    <!-- ADSENSE SLOT: POST-RESULTS (300x250 o 336x280) — Usuario ve el ahorro, esta enganchado -->
+    <!-- ADSENSE SLOT: POST-RESULTS (300x250 o 336x280) — Usuario ve el ahorro, está enganchado -->
     <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
-    [AdSense 300x250 — Post resultados]
   </div>
 
   <!-- ===== AFFILIATE SECTION ===== -->
@@ -660,9 +803,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="bg-bg-dark rounded-2xl p-5">
       <div class="flex items-center gap-2 mb-3">
         <span class="material-symbols-outlined text-primary text-xl">swap_horiz</span>
-        <h3 class="font-bold text-white">Listo para cambiar?</h3>
+        <h3 class="font-bold text-white">&iquest;Listo para cambiar?</h3>
       </div>
-      <p class="text-slate-400 text-sm mb-4">Estas son algunas de las comercializadoras mas valoradas en Espana:</p>
+      <p class="text-slate-400 text-sm mb-4">Estas son algunas de las comercializadoras más valoradas en España:</p>
       <div class="grid grid-cols-2 gap-3">
         <!-- Placeholder affiliate cards -->
         <a href="#" class="bg-white/10 rounded-xl p-3 text-center border border-white/20 active:scale-95 transition-transform">
@@ -671,7 +814,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </a>
         <a href="#" class="bg-white/10 rounded-xl p-3 text-center border border-white/20 active:scale-95 transition-transform">
           <p class="text-white font-bold text-sm">Octopus</p>
-          <p class="text-primary text-xs">Tarifa dinamica</p>
+          <p class="text-primary text-xs">Tarifa dinámica</p>
         </a>
         <a href="#" class="bg-white/10 rounded-xl p-3 text-center border border-white/20 active:scale-95 transition-transform">
           <p class="text-white font-bold text-sm">Naturgy</p>
@@ -692,7 +835,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button onclick="toggleHistoricoAccordion()" class="w-full flex items-center justify-between px-4 py-4 active:bg-slate-50">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-slate-500 text-xl">history</span>
-          <h3 class="font-bold text-sm">Historial de calculos</h3>
+          <h3 class="font-bold text-sm">Historial de cálculos</h3>
         </div>
         <span id="hist-chevron" class="material-symbols-outlined accordion-chevron text-slate-400">expand_more</span>
       </button>
@@ -713,22 +856,94 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
+  <!-- ===== BLOG / CONTENIDO SEO ===== -->
+  <section id="blog-section" class="space-y-4">
+    <div class="bg-white rounded-xl border border-slate-200 p-5">
+      <h2 id="blog-title" class="text-lg font-bold text-text-dark mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">school</span>
+        Guía rápida: entiende tu factura
+      </h2>
+
+      <details id="blog-t2-guide" class="group border border-slate-100 rounded-lg mb-2">
+        <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition-colors">
+          <span class="text-sm font-semibold text-text-dark">¿Qué es la tarifa T2 (2.0TD)?</span>
+          <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform text-base">expand_more</span>
+        </summary>
+        <div class="px-4 pb-4 text-sm text-slate-600 space-y-2">
+          <p>La <strong>tarifa 2.0TD</strong> es la que tienen la mayoría de hogares en España (potencia contratada hasta 15 kW). Tiene <strong>3 periodos horarios</strong>:</p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li><strong>Punta</strong> (10h-14h y 18h-22h): precio más alto</li>
+            <li><strong>Llano</strong> (8h-10h, 14h-18h y 22h-24h): precio intermedio</li>
+            <li><strong>Valle</strong> (0h-8h y fines de semana/festivos): precio más bajo</li>
+          </ul>
+          <p>Tu factura tiene dos componentes principales: <strong>potencia</strong> (fijo, por la capacidad contratada) y <strong>energía</strong> (variable, por lo que consumes).</p>
+        </div>
+      </details>
+
+      <details id="blog-gas-guide" class="group border border-slate-100 rounded-lg mb-2">
+        <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition-colors">
+          <span class="text-sm font-semibold text-text-dark">¿Cómo funciona la tarifa de gas RL1?</span>
+          <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform text-base">expand_more</span>
+        </summary>
+        <div class="px-4 pb-4 text-sm text-slate-600 space-y-2">
+          <p>La tarifa <strong>RL1</strong> es para consumos domésticos de gas natural (hasta 5.000 kWh/año aprox.). Se compone de:</p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li><strong>Término fijo</strong>: cuota diaria independiente del consumo</li>
+            <li><strong>Término variable</strong>: precio por cada kWh que consumes</li>
+          </ul>
+          <p>A diferencia de la electricidad, el gas no tiene periodos horarios: el precio es el mismo las 24h.</p>
+        </div>
+      </details>
+
+      <details id="blog-tips" class="group border border-slate-100 rounded-lg mb-2">
+        <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition-colors">
+          <span class="text-sm font-semibold text-text-dark">5 consejos para ahorrar en luz y gas</span>
+          <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform text-base">expand_more</span>
+        </summary>
+        <div class="px-4 pb-4 text-sm text-slate-600 space-y-2">
+          <ol class="list-decimal list-inside space-y-1 pl-2">
+            <li><strong>Compara ofertas</strong> regularmente: el mercado cambia cada 3-6 meses</li>
+            <li><strong>Ajusta tu potencia</strong>: si nunca saltan los plomos, quizá estés pagando de más</li>
+            <li><strong>Concentra consumos</strong> en horario valle (noches y fines de semana)</li>
+            <li><strong>Revisa descuentos</strong>: muchas comercializadoras ofrecen dto. web o dto. bono social</li>
+            <li><strong>Cuidado con las permanencias</strong>: algunas ofertas baratas incluyen penalización</li>
+          </ol>
+        </div>
+      </details>
+
+      <details id="blog-where-data" class="group border border-slate-100 rounded-lg">
+        <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition-colors">
+          <span class="text-sm font-semibold text-text-dark">¿Dónde encuentro los precios de mi tarifa?</span>
+          <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform text-base">expand_more</span>
+        </summary>
+        <div class="px-4 pb-4 text-sm text-slate-600 space-y-2">
+          <p>Puedes encontrar los precios de tu tarifa actual en:</p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li>Tu última <strong>factura</strong> (apartado "Detalle de la factura")</li>
+            <li>El <strong>área de clientes</strong> de tu comercializadora</li>
+            <li>Tu <strong>contrato</strong> o condiciones particulares</li>
+          </ul>
+          <p>Para la nueva oferta, busca la <strong>ficha de producto</strong> o el email con la propuesta comercial.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
   <!-- ===== FOOTER ADSENSE ===== -->
-  <div class="bg-slate-100 rounded-xl flex items-center justify-center min-h-[50px] text-[10px] text-slate-400">
+  <div id="adsense-footer" class="adsense-slot" style="display:none">
     <!-- ADSENSE SLOT: FOOTER (728x90 desktop / 320x50 mobile) -->
     <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
-    [AdSense Banner Footer]
   </div>
 
-  <footer class="text-center text-[11px] text-slate-400 pb-4">
+  <footer id="footer" class="text-center text-xs text-slate-400 pb-4">
     <p>Herramienta gratuita — sin registro — datos solo en tu dispositivo</p>
-    <p class="mt-1">LIVINK &copy; 2025</p>
+    <p class="mt-1">LIVINK &copy; 2026</p>
   </footer>
 
 </main>
 
 <!-- ===== BOTTOM NAV (tarifa quick-switch) ===== -->
-<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 bottom-nav">
+<nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 bottom-nav">
   <div class="flex max-w-2xl mx-auto">
     <button onclick="cambiarTab('t2')" id="nav-t2"
       class="nav-btn flex-1 flex flex-col items-center gap-1 py-2 text-primary">
@@ -784,8 +999,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </button>
     </div>
     <div class="px-5 py-4 space-y-3">
-      <p class="text-sm text-slate-500">Encontraste un error o tienes sugerencias? Cuentanos.</p>
+      <p class="text-sm text-slate-500">&iquest;Encontraste un error o tienes sugerencias? Cuéntanos.</p>
       <form id="formComentarios" class="space-y-3">
+        <!-- Honeypot anti-spam: hidden field bots will fill -->
+        <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+          <label for="website-hp">Website</label>
+          <input type="text" id="website-hp" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <div>
           <label class="block text-xs font-semibold text-slate-500 mb-1">Nombre (opcional)</label>
           <input type="text" id="nombre-comentario" placeholder="Tu nombre"
@@ -799,7 +1019,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div>
           <label class="block text-xs font-semibold text-slate-500 mb-1">Mensaje *</label>
           <textarea id="mensaje-comentario" rows="3" placeholder="Describe el error o tu sugerencia" required
-            class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base"></textarea>
+            class="w-full border-2 border-slate-200 rounded-lg px-3 py-3 text-base" minlength="10"></textarea>
         </div>
         <label class="flex items-center gap-2 text-sm cursor-pointer">
           <input type="checkbox" id="tipo-error" class="accent-primary w-4 h-4">
@@ -815,10 +1035,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- FAB comentarios -->
-<button onclick="abrirFormularioComentarios()"
-  class="fixed bottom-24 right-4 z-40 size-12 rounded-full bg-orange-500 text-white shadow-lg shadow-orange-500/40 flex items-center justify-center active:scale-95 transition-transform"
+<button id="fab-comentarios" onclick="abrirFormularioComentarios()"
+  class="fixed bottom-24 right-4 z-40 size-11 rounded-full bg-slate-700 text-white shadow-lg flex items-center justify-center active:scale-95 transition-transform opacity-70 hover:opacity-100"
   title="Enviar comentarios">
-  <span class="material-symbols-outlined text-xl">chat</span>
+  <span class="material-symbols-outlined text-lg">chat</span>
 </button>
 
 <!-- Import file input -->
@@ -848,6 +1068,7 @@ window.addEventListener('DOMContentLoaded', () => {
   cargarDatos();
   mostrarHistorico();
   actualizarHeadersMeses();
+  restaurarLocks();
 });
 
 // =====================
@@ -924,19 +1145,34 @@ function buildT3TablaUI(){
     });
     div.innerHTML=`<div class="flex items-center justify-between mb-2">
         <span class="font-bold text-sm text-slate-700">${p}</span>
-        <div class="flex gap-2">
-          <input type="number" id="t3-${pNum}-kw" inputmode="decimal" step="0.01" placeholder="kW"
-            class="w-20 border border-slate-200 rounded-lg px-2 py-1 text-xs text-center bg-white">
-          <input type="number" id="t3-${pNum}-precio-kw" inputmode="decimal" step="0.001" placeholder="€/kW/día"
-            class="w-24 border border-slate-200 rounded-lg px-2 py-1 text-xs text-center bg-white">
-          <input type="number" id="t3-${pNum}-energia" inputmode="decimal" step="0.001" placeholder="€/kWh"
-            class="w-20 border border-slate-200 rounded-lg px-2 py-1 text-xs text-center bg-white">
-        </div>
+        <input type="number" id="t3-${pNum}-kw" inputmode="decimal" step="0.01" placeholder="kW contratados"
+          class="w-28 border border-slate-200 rounded-lg px-2 py-1 text-xs text-center bg-white">
       </div>
       <details class="mt-1">
         <summary class="text-xs text-primary font-semibold cursor-pointer">Ver consumos mensuales</summary>
         <div class="mt-2">${mesesInputs}</div>
       </details>`;
+    container.appendChild(div);
+  });
+  // Build price inputs for actual and nueva
+  buildT3PreciosUI('t3v-actual-precios');
+  buildT3PreciosUI('t3v-nueva-precios');
+}
+
+function buildT3PreciosUI(containerId){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  container.innerHTML='';
+  ['P1','P2','P3','P4','P5','P6'].forEach(p=>{
+    const pNum=p.toLowerCase();
+    const prefix=containerId.includes('actual')?'t3v-actual':'t3v-nueva';
+    const div=document.createElement('div');
+    div.className='flex items-center gap-2 bg-slate-50 rounded-lg p-2 border border-slate-200';
+    div.innerHTML=`<span class="font-bold text-xs text-slate-600 w-8 shrink-0">${p}</span>
+      <input type="number" id="${prefix}-${pNum}-precio-kw" inputmode="decimal" step="0.001" placeholder="€/kW/día"
+        class="flex-1 border border-slate-200 rounded-lg px-2 py-1.5 text-xs text-center bg-white">
+      <input type="number" id="${prefix}-${pNum}-energia" inputmode="decimal" step="0.001" placeholder="€/kWh"
+        class="flex-1 border border-slate-200 rounded-lg px-2 py-1.5 text-xs text-center bg-white">`;
     container.appendChild(div);
   });
 }
@@ -949,15 +1185,15 @@ function cambiarTab(tab){
   // Hide all tab content
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.add('hidden'));
   document.getElementById('tab-'+tab).classList.remove('hidden');
-  // Update card styles
+  // Update browser-tab style cards
   document.querySelectorAll('.tab-card').forEach(c=>{
-    c.classList.remove('border-primary','bg-primary/10');
-    c.classList.add('border-transparent','bg-white');
+    c.classList.remove('active-tab','border-primary','text-text-dark');
+    c.classList.add('border-transparent','text-slate-400');
   });
   const activeCard=document.getElementById('card-'+tab);
   if(activeCard){
-    activeCard.classList.remove('border-transparent','bg-white');
-    activeCard.classList.add('border-primary','bg-primary/10');
+    activeCard.classList.remove('border-transparent','text-slate-400');
+    activeCard.classList.add('active-tab','border-primary','text-text-dark');
   }
   // Update bottom nav
   document.querySelectorAll('.nav-btn').forEach(b=>{
@@ -971,6 +1207,73 @@ function cambiarTab(tab){
   }
   // Scroll to top of form
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// =====================
+// SUBTAB SWITCHING (Actual/Nueva)
+// =====================
+function cambiarSubtab(tipo,subtab){
+  // Toggle panels
+  const panelActual=document.getElementById(tipo+'-panel-actual');
+  const panelNueva=document.getElementById(tipo+'-panel-nueva');
+  const btnActual=document.getElementById(tipo+'-subtab-actual');
+  const btnNueva=document.getElementById(tipo+'-subtab-nueva');
+  if(!panelActual||!panelNueva)return;
+  if(subtab==='actual'){
+    panelActual.classList.remove('hidden');
+    panelNueva.classList.add('hidden');
+    btnActual.classList.add('active-subtab');
+    btnNueva.classList.remove('active-subtab');
+  }else{
+    panelActual.classList.add('hidden');
+    panelNueva.classList.remove('hidden');
+    btnActual.classList.remove('active-subtab');
+    btnNueva.classList.add('active-subtab');
+  }
+}
+
+// =====================
+// LOCK TARIFA ACTUAL
+// =====================
+function toggleLock(tipo){
+  const panel=document.getElementById(tipo+'-panel-actual');
+  const icon=document.getElementById(tipo+'-lock-icon');
+  const text=document.getElementById(tipo+'-lock-text');
+  if(!panel)return;
+  const isLocked=panel.classList.contains('locked-overlay');
+  if(isLocked){
+    panel.classList.remove('locked-overlay');
+    icon.textContent='lock_open';
+    text.textContent='Bloquear';
+    localStorage.removeItem(tipo+'_locked');
+    mostrarToast('Tarifa desbloqueada');
+  }else{
+    panel.classList.add('locked-overlay');
+    icon.textContent='lock';
+    icon.classList.add('filled');
+    text.textContent='Desbloquear';
+    localStorage.setItem(tipo+'_locked','1');
+    mostrarToast('Tarifa bloqueada — solo rellena la nueva oferta');
+    // Auto-switch to nueva tab
+    cambiarSubtab(tipo,'nueva');
+  }
+}
+
+function restaurarLocks(){
+  ['t2','gas'].forEach(tipo=>{
+    if(localStorage.getItem(tipo+'_locked')==='1'){
+      const panel=document.getElementById(tipo+'-panel-actual');
+      const icon=document.getElementById(tipo+'-lock-icon');
+      const text=document.getElementById(tipo+'-lock-text');
+      if(panel){
+        panel.classList.add('locked-overlay');
+        if(icon){icon.textContent='lock';icon.classList.add('filled');}
+        if(text)text.textContent='Desbloquear';
+        // Auto-switch to nueva
+        cambiarSubtab(tipo,'nueva');
+      }
+    }
+  });
 }
 
 // =====================
@@ -1095,7 +1398,7 @@ function cerrarModal(){
 
 function aplicarPaste(){
   const texto=document.getElementById('modalTextarea').value;
-  if(!texto.trim()){mostrarToast('No has pegado ningun dato','error');return;}
+  if(!texto.trim()){mostrarToast('No has pegado ningún dato','error');return;}
   procesarPaste(tipoActualPaste,texto);
   cerrarModal();
 }
@@ -1138,7 +1441,7 @@ function procesarPaste(tipo,texto){
 // =====================
 function resetNuevaOferta(){
   if(tabActual==='t2'){
-    ['t2-nueva-nombre','t2-nueva-pot-punta-kw','t2-nueva-pot-punta-precio','t2-nueva-pot-valle-kw','t2-nueva-pot-valle-precio','t2-nueva-punta','t2-nueva-llano','t2-nueva-valle'].forEach(id=>document.getElementById(id).value='');
+    ['t2-nueva-nombre','t2-nueva-pot-punta-precio','t2-nueva-pot-valle-precio','t2-nueva-punta','t2-nueva-llano','t2-nueva-valle'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     document.getElementById('t2-nueva-dto').value='0';
     document.querySelector('input[name="t2-nueva-unit-punta"][value="dia"]').checked=true;
     document.querySelector('input[name="t2-nueva-unit-valle"][value="dia"]').checked=true;
@@ -1146,9 +1449,16 @@ function resetNuevaOferta(){
     ['gas-nueva-nombre','gas-nueva-fijo','gas-nueva-variable'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('gas-nueva-dto').value='0';
     document.querySelector('input[name="gas-nueva-unit"][value="dia"]').checked=true;
-  }else{
+  }else if(modoT3==='mes'){
     ['t3-nueva-nombre','t3-nueva-potencias','t3-nueva-energia'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('t3-nueva-dto').value='0';
+  }else{
+    const el=document.getElementById('t3v-nueva-nombre');if(el)el.value='';
+    const dto=document.getElementById('t3v-nueva-dto');if(dto)dto.value='0';
+    ['p1','p2','p3','p4','p5','p6'].forEach(p=>{
+      const kw=document.getElementById(`t3v-nueva-${p}-precio-kw`);if(kw)kw.value='';
+      const en=document.getElementById(`t3v-nueva-${p}-energia`);if(en)en.value='';
+    });
   }
 }
 
@@ -1208,9 +1518,12 @@ function cargarDatos(){
   const datos=JSON.parse(d);
   if(datos.t2){
     document.getElementById('t2-actual-nombre').value=datos.t2.nombre||'';
-    document.getElementById('t2-actual-pot-punta-kw').value=datos.t2.potPuntaKw||'';
+    // Shared potencia kW
+    const potPuntaKwEl=document.getElementById('t2-pot-punta-kw');
+    const potValleKwEl=document.getElementById('t2-pot-valle-kw');
+    if(potPuntaKwEl)potPuntaKwEl.value=datos.t2.potPuntaKw||'';
+    if(potValleKwEl)potValleKwEl.value=datos.t2.potValleKw||'';
     document.getElementById('t2-actual-pot-punta-precio').value=datos.t2.potPuntaPrecio||'';
-    document.getElementById('t2-actual-pot-valle-kw').value=datos.t2.potValleKw||'';
     document.getElementById('t2-actual-pot-valle-precio').value=datos.t2.potVallePrecio||'';
     document.getElementById('t2-actual-punta').value=datos.t2.punta||'';
     document.getElementById('t2-actual-llano').value=datos.t2.llano||'';
@@ -1238,9 +1551,9 @@ function guardarDatos(){
   const datos={
     t2:{
       nombre:document.getElementById('t2-actual-nombre').value,
-      potPuntaKw:document.getElementById('t2-actual-pot-punta-kw').value,
+      potPuntaKw:document.getElementById('t2-pot-punta-kw').value,
       potPuntaPrecio:document.getElementById('t2-actual-pot-punta-precio').value,
-      potValleKw:document.getElementById('t2-actual-pot-valle-kw').value,
+      potValleKw:document.getElementById('t2-pot-valle-kw').value,
       potVallePrecio:document.getElementById('t2-actual-pot-valle-precio').value,
       punta:document.getElementById('t2-actual-punta').value,
       llano:document.getElementById('t2-actual-llano').value,
@@ -1271,15 +1584,17 @@ function guardarDatos(){
 // =====================
 function calcular(){
   let nombreNueva='';
-  let totalActual=0,totalNueva=0;
+  let potActual=0,potNueva=0,enActual=0,enNueva=0;
   let datosUsados='';
 
   if(tabActual==='t2'){
     const nombre=document.getElementById('t2-actual-nombre').value||'Actual T2';
     nombreNueva=document.getElementById('t2-nueva-nombre').value||'Nueva T2';
-    const potPuntaKwA=parseFloat(document.getElementById('t2-actual-pot-punta-kw').value);
+    // Shared kW values
+    const potPuntaKw=parseFloat(document.getElementById('t2-pot-punta-kw').value);
+    const potValleKw=parseFloat(document.getElementById('t2-pot-valle-kw').value);
+    // Actual prices
     const potPuntaPrecioA=parseFloat(document.getElementById('t2-actual-pot-punta-precio').value);
-    const potValleKwA=parseFloat(document.getElementById('t2-actual-pot-valle-kw').value);
     const potVallePrecioA=parseFloat(document.getElementById('t2-actual-pot-valle-precio').value);
     const puntaA=parseFloat(document.getElementById('t2-actual-punta').value);
     const llanoA=parseFloat(document.getElementById('t2-actual-llano').value);
@@ -1287,10 +1602,8 @@ function calcular(){
     const dtoA=parseFloat(document.getElementById('t2-actual-dto').value)||0;
     const unitPuntaA=document.querySelector('input[name="t2-actual-unit-punta"]:checked').value;
     const unitValleA=document.querySelector('input[name="t2-actual-unit-valle"]:checked').value;
-
-    const potPuntaKwN=parseFloat(document.getElementById('t2-nueva-pot-punta-kw').value);
+    // Nueva prices
     const potPuntaPrecioN=parseFloat(document.getElementById('t2-nueva-pot-punta-precio').value);
-    const potValleKwN=parseFloat(document.getElementById('t2-nueva-pot-valle-kw').value);
     const potVallePrecioN=parseFloat(document.getElementById('t2-nueva-pot-valle-precio').value);
     const puntaN=parseFloat(document.getElementById('t2-nueva-punta').value);
     const llanoN=parseFloat(document.getElementById('t2-nueva-llano').value);
@@ -1299,8 +1612,8 @@ function calcular(){
     const unitPuntaN=document.querySelector('input[name="t2-nueva-unit-punta"]:checked').value;
     const unitValleN=document.querySelector('input[name="t2-nueva-unit-valle"]:checked').value;
 
-    if(isNaN(potPuntaKwA)||isNaN(potPuntaPrecioA)||isNaN(potValleKwA)||isNaN(potVallePrecioA)||isNaN(puntaA)||isNaN(llanoA)||isNaN(valleA)||
-       isNaN(potPuntaKwN)||isNaN(potPuntaPrecioN)||isNaN(potValleKwN)||isNaN(potVallePrecioN)||isNaN(puntaN)||isNaN(llanoN)||isNaN(valleN)){
+    if(isNaN(potPuntaKw)||isNaN(potValleKw)||isNaN(potPuntaPrecioA)||isNaN(potVallePrecioA)||isNaN(puntaA)||isNaN(llanoA)||isNaN(valleA)||
+       isNaN(potPuntaPrecioN)||isNaN(potVallePrecioN)||isNaN(puntaN)||isNaN(llanoN)||isNaN(valleN)){
       mostrarToast('Completa todos los campos T2','error');return;
     }
 
@@ -1317,14 +1630,14 @@ function calcular(){
       const consValle=parseFloat(document.getElementById('t2-cons-valle').value)||50;
       datosUsados=`Punta ${consPunta} kWh · Llano ${consLlano} kWh · Valle ${consValle} kWh`;
       const dias=30;
-      totalActual=consPunta*precPuntaA+consLlano*precLlanoA+consValle*precValleA;
-      totalNueva=consPunta*precPuntaN+consLlano*precLlanoN+consValle*precValleN;
+      enActual=consPunta*precPuntaA+consLlano*precLlanoA+consValle*precValleA;
+      enNueva=consPunta*precPuntaN+consLlano*precLlanoN+consValle*precValleN;
       const potPrecPuntaA=(unitPuntaA==='dia'?potPuntaPrecioA:potPuntaPrecioA/365)*dias;
       const potPrecValleA=(unitValleA==='dia'?potVallePrecioA:potVallePrecioA/365)*dias;
       const potPrecPuntaN=(unitPuntaN==='dia'?potPuntaPrecioN:potPuntaPrecioN/365)*dias;
       const potPrecValleN=(unitValleN==='dia'?potVallePrecioN:potVallePrecioN/365)*dias;
-      totalActual+=(potPuntaKwA*potPrecPuntaA+potValleKwA*potPrecValleA);
-      totalNueva+=(potPuntaKwN*potPrecPuntaN+potValleKwN*potPrecValleN);
+      potActual=(potPuntaKw*potPrecPuntaA+potValleKw*potPrecValleA);
+      potNueva=(potPuntaKw*potPrecPuntaN+potValleKw*potPrecValleN);
     }else{
       let totPunta=0,totLlano=0,totValle=0;
       for(let i=0;i<12;i++){
@@ -1333,14 +1646,14 @@ function calcular(){
         const v=parseFloat(document.getElementById(`t2-valle-${i}`).value)||0;
         const dias=consumosT2Default.dias[i];
         totPunta+=p;totLlano+=l;totValle+=v;
-        totalActual+=p*precPuntaA+l*precLlanoA+v*precValleA;
-        totalNueva+=p*precPuntaN+l*precLlanoN+v*precValleN;
+        enActual+=p*precPuntaA+l*precLlanoA+v*precValleA;
+        enNueva+=p*precPuntaN+l*precLlanoN+v*precValleN;
         const potPrecPuntaA=(unitPuntaA==='dia'?potPuntaPrecioA:potPuntaPrecioA/365)*dias;
         const potPrecValleA=(unitValleA==='dia'?potVallePrecioA:potVallePrecioA/365)*dias;
         const potPrecPuntaN=(unitPuntaN==='dia'?potPuntaPrecioN:potPuntaPrecioN/365)*dias;
         const potPrecValleN=(unitValleN==='dia'?potVallePrecioN:potVallePrecioN/365)*dias;
-        totalActual+=(potPuntaKwA*potPrecPuntaA+potValleKwA*potPrecValleA);
-        totalNueva+=(potPuntaKwN*potPrecPuntaN+potValleKwN*potPrecValleN);
+        potActual+=(potPuntaKw*potPrecPuntaA+potValleKw*potPrecValleA);
+        potNueva+=(potPuntaKw*potPrecPuntaN+potValleKw*potPrecValleN);
       }
       datosUsados=`Anual: Punta ${totPunta.toFixed(0)} · Llano ${totLlano.toFixed(0)} · Valle ${totValle.toFixed(0)} kWh`;
     }
@@ -1367,15 +1680,19 @@ function calcular(){
       const cons=parseFloat(document.getElementById('gas-cons').value)||1000;
       datosUsados=`Consumo: ${cons} kWh`;
       const dias=30;
-      totalActual=cons*precVarA+precFijoA*dias;
-      totalNueva=cons*precVarN+precFijoN*dias;
+      potActual=precFijoA*dias;
+      potNueva=precFijoN*dias;
+      enActual=cons*precVarA;
+      enNueva=cons*precVarN;
     }else{
       let totKwh=0;
       for(let i=0;i<12;i++){
         const kwh=parseFloat(document.getElementById(`gas-kwh-${i}`).value)||0;
         totKwh+=kwh;
-        totalActual+=kwh*precVarA+precFijoA*consumosGasDefault.dias[i];
-        totalNueva+=kwh*precVarN+precFijoN*consumosGasDefault.dias[i];
+        potActual+=precFijoA*consumosGasDefault.dias[i];
+        potNueva+=precFijoN*consumosGasDefault.dias[i];
+        enActual+=kwh*precVarA;
+        enNueva+=kwh*precVarN;
       }
       datosUsados=`Consumo anual: ${totKwh.toFixed(0)} kWh`;
     }
@@ -1387,7 +1704,7 @@ function calcular(){
     const energiaTextoA=document.getElementById('t3-actual-energia').value;
     const energiaTextoN=document.getElementById('t3-nueva-energia').value;
 
-    if(!textoA||!textoN||!energiaTextoA||!energiaTextoN){mostrarToast('Completa potencias y energia T3','error');return;}
+    if(!textoA||!textoN||!energiaTextoA||!energiaTextoN){mostrarToast('Completa potencias y energía T3','error');return;}
 
     const potA=parsePotencias(textoA);
     const potN=parsePotencias(textoN);
@@ -1404,77 +1721,85 @@ function calcular(){
 
     for(let j=1;j<=6;j++){
       const p='P'+j;
-      if(potA[p])totalActual+=(potA[p].kw*potA[p].precio*dias);
-      if(potN[p])totalNueva+=(potN[p].kw*potN[p].precio*dias);
+      if(potA[p])potActual+=(potA[p].kw*potA[p].precio*dias);
+      if(potN[p])potNueva+=(potN[p].kw*potN[p].precio*dias);
     }
     const precEnA=aplicarDescuento(enA.P1||Object.values(enA)[0]||0,dtoA);
     const precEnN=aplicarDescuento(enN.P1||Object.values(enN)[0]||0,dtoN);
     const consumoEst=500;
-    totalActual+=consumoEst*precEnA;
-    totalNueva+=consumoEst*precEnN;
+    enActual=consumoEst*precEnA;
+    enNueva=consumoEst*precEnN;
     datosUsados=`Consumo estimado: ${consumoEst} kWh`;
 
   }else{
-    nombreNueva=document.getElementById('t3-nueva-nombre').value||'Nueva T3';
-    let completoA=true,completoN=true;
-    for(let p=1;p<=6;p++){
-      if(!document.getElementById(`t3-p${p}-kw`).value||!document.getElementById(`t3-p${p}-precio-kw`).value||!document.getElementById(`t3-p${p}-energia`).value){completoA=false;}
-    }
-    if(!completoA){mostrarToast('Completa potencias y precios en T3','error');return;}
-
+    nombreNueva=document.getElementById('t3v-nueva-nombre').value||'Nueva T3';
+    const dtoAVal=parseFloat(document.getElementById('t3v-actual-dto').value)||0;
+    const dtoNVal=parseFloat(document.getElementById('t3v-nueva-dto').value)||0;
     const mesesDin=generarMesesDinamicos();
+
     for(let p=1;p<=6;p++){
-      const kw=parseFloat(document.getElementById(`t3-p${p}-kw`).value);
-      const precioKw=parseFloat(document.getElementById(`t3-p${p}-precio-kw`).value);
-      const precioEn=parseFloat(document.getElementById(`t3-p${p}-energia`).value);
-      const dtoAVal=parseFloat(document.getElementById('t3-actual-dto').value)||0;
-      const dtoNVal=parseFloat(document.getElementById('t3-nueva-dto').value)||0;
+      const pNum='p'+p;
+      const kw=parseFloat(document.getElementById(`t3-${pNum}-kw`).value)||0;
+      const precioKwA=parseFloat(document.getElementById(`t3v-actual-${pNum}-precio-kw`).value)||0;
+      const precioKwN=parseFloat(document.getElementById(`t3v-nueva-${pNum}-precio-kw`).value)||0;
+      const precioEnA=parseFloat(document.getElementById(`t3v-actual-${pNum}-energia`).value)||0;
+      const precioEnN=parseFloat(document.getElementById(`t3v-nueva-${pNum}-energia`).value)||0;
       for(let m=0;m<12;m++){
-        const pNum='p'+p;
-        const kwhA=parseFloat(document.getElementById(`t3-${pNum}-kwh-${m}`).value)||0;
-        const kwhN=parseFloat(document.getElementById(`t3-${pNum}-kwh-${m}`).value)||0;
-        const dias=mesesDin[m].numero===1?28:(mesesDin[m].numero%2===0&&mesesDin[m].numero<=7||mesesDin[m].numero%2===1&&mesesDin[m].numero>7)?31:30;
-        const precEnA=aplicarDescuento(precioEn,dtoAVal);
-        const precEnN=aplicarDescuento(precioEn,dtoNVal);
-        totalActual+=(kw*precioKw*dias)+(kwhA*precEnA);
-        totalNueva+=(kw*precioKw*dias)+(kwhN*precEnN);
+        const kwh=parseFloat(document.getElementById(`t3-${pNum}-kwh-${m}`).value)||0;
+        const dias=diasMes[mesesDin[m].numero];
+        potActual+=(kw*precioKwA*dias);
+        potNueva+=(kw*precioKwN*dias);
+        enActual+=(kwh*aplicarDescuento(precioEnA,dtoAVal));
+        enNueva+=(kwh*aplicarDescuento(precioEnN,dtoNVal));
       }
     }
     datosUsados='Consumo anual T3: tabla de 12 meses';
   }
 
   guardarDatos();
-  const ahorro=-(totalActual-totalNueva);
-  mostrarResultados(totalActual,totalNueva,ahorro,datosUsados);
+  const totalActual=potActual+enActual;
+  const totalNueva=potNueva+enNueva;
+  const ahorro=totalActual-totalNueva;
+  mostrarResultados(totalActual,totalNueva,ahorro,datosUsados,{potActual,potNueva,enActual,enNueva});
   guardarHistorico(nombreNueva,totalNueva,ahorro);
 }
 
 // =====================
 // MOSTRAR RESULTADOS
 // =====================
-function mostrarResultados(actual,nueva,ahorro,datosUsados){
-  const periodo=tabActual==='t2'&&modoT2==='varios'||tabActual==='gas'&&modoGas==='varios'?'Anual':'Mensual';
+function mostrarResultados(actual,nueva,ahorro,datosUsados,desglose){
+  const esAnual=(tabActual==='t2'&&modoT2==='varios')||(tabActual==='gas'&&modoGas==='varios')||(tabActual==='t3'&&modoT3==='varios');
+  const periodo=esAnual?'Anual':'Mensual';
   const hayAhorro=ahorro>0;
   const ahorroAbs=Math.abs(ahorro).toFixed(2);
-  const ahorroAnual=hayAhorro?(ahorro*12).toFixed(2):null;
+  const ahorroAnual=hayAhorro&&!esAnual?(ahorro*12).toFixed(2):null;
+
+  // Labels según tipo de tarifa
+  const labelPot=tabActual==='gas'?'Término fijo':'Potencia';
+  const labelEn=tabActual==='gas'?'Término variable':'Energía';
+
+  // Desglose
+  const d=desglose||{};
+  const ahorroPot=(d.potActual||0)-(d.potNueva||0);
+  const ahorroEn=(d.enActual||0)-(d.enNueva||0);
 
   const html=`
     <div class="animate-slide-up space-y-4">
       <!-- Main savings card -->
-      <div class="${hayAhorro?'bg-bg-dark border-2 border-primary':'bg-red-950 border-2 border-red-500'} rounded-2xl p-5">
+      <div class="${hayAhorro?'bg-bg-dark border-2 border-blue-500':'bg-bg-dark border-2 border-amber-500'} rounded-2xl p-5">
         <div class="flex items-start justify-between mb-4">
           <div>
-            <p class="text-${hayAhorro?'primary':'red-400'} text-xs font-bold uppercase tracking-widest mb-1">
+            <p class="${hayAhorro?'text-blue-400':'text-amber-400'} text-xs font-bold uppercase tracking-widest mb-1">
               ${hayAhorro?'Puedes ahorrar':'Sin ahorro'}
             </p>
             <h3 class="text-white text-3xl font-bold">${ahorroAbs} €<span class="text-lg font-normal text-slate-400"> /${periodo.toLowerCase()}</span></h3>
-            ${hayAhorro&&ahorroAnual?`<p class="text-primary text-sm font-semibold mt-1">${ahorroAnual} € al año</p>`:''}
+            ${hayAhorro&&ahorroAnual?`<p class="text-blue-400 text-sm font-semibold mt-1">${ahorroAnual} € al año</p>`:''}
           </div>
-          <div class="size-14 rounded-2xl ${hayAhorro?'bg-primary/20':'bg-red-500/20'} flex items-center justify-center">
-            <span class="material-symbols-outlined text-3xl ${hayAhorro?'text-primary':'text-red-400'}">${hayAhorro?'trending_down':'trending_up'}</span>
+          <div class="size-14 rounded-2xl ${hayAhorro?'bg-blue-500/20':'bg-amber-500/20'} flex items-center justify-center">
+            <span class="material-symbols-outlined text-3xl ${hayAhorro?'text-blue-400':'text-amber-400'}">${hayAhorro?'trending_down':'trending_up'}</span>
           </div>
         </div>
-        <p class="text-slate-400 text-sm">${hayAhorro?'La oferta nueva es mas economica. Merece la pena cambiar.':'Tu tarifa actual es mejor. No conviene cambiar.'}</p>
+        <p class="text-slate-400 text-sm">${hayAhorro?'La oferta nueva es más económica. Merece la pena cambiar.':'Tu tarifa actual es mejor. No conviene cambiar.'}</p>
         ${datosUsados?`<p class="text-[11px] text-slate-500 mt-2">${datosUsados}</p>`:''}
       </div>
 
@@ -1485,10 +1810,52 @@ function mostrarResultados(actual,nueva,ahorro,datosUsados){
           <p class="text-xs font-bold text-slate-500 mb-2">Tarifa Actual</p>
           <p class="text-2xl font-bold text-text-dark">${actual.toFixed(2)} €</p>
         </div>
-        <div class="bg-white rounded-xl border-2 border-primary p-4 text-center">
-          <p class="text-xs font-semibold text-primary mb-1">Total ${periodo}</p>
+        <div class="bg-white rounded-xl border-2 ${hayAhorro?'border-blue-500':'border-amber-500'} p-4 text-center">
+          <p class="text-xs font-semibold ${hayAhorro?'text-blue-600':'text-amber-600'} mb-1">Total ${periodo}</p>
           <p class="text-xs font-bold text-slate-500 mb-2">Oferta Nueva</p>
-          <p class="text-2xl font-bold text-primary">${nueva.toFixed(2)} €</p>
+          <p class="text-2xl font-bold ${hayAhorro?'text-blue-600':'text-amber-600'}">${nueva.toFixed(2)} €</p>
+        </div>
+      </div>
+
+      <!-- Desglose potencia vs energía -->
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div class="px-4 py-3 border-b border-slate-100">
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Desglose</p>
+        </div>
+        <div class="divide-y divide-slate-100">
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-blue-500">bolt</span>
+              <span class="text-sm font-medium text-slate-700">${labelPot}</span>
+            </div>
+            <div class="text-right">
+              <span class="text-xs text-slate-400">${(d.potActual||0).toFixed(2)} → ${(d.potNueva||0).toFixed(2)} €</span>
+              <span class="text-sm font-bold ${ahorroPot>0?'savings-positive':'savings-negative'} ml-2">${ahorroPot>0?'-':'+'}${Math.abs(ahorroPot).toFixed(2)} €</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-amber-500">electric_meter</span>
+              <span class="text-sm font-medium text-slate-700">${labelEn}</span>
+            </div>
+            <div class="text-right">
+              <span class="text-xs text-slate-400">${(d.enActual||0).toFixed(2)} → ${(d.enNueva||0).toFixed(2)} €</span>
+              <span class="text-sm font-bold ${ahorroEn>0?'savings-positive':'savings-negative'} ml-2">${ahorroEn>0?'-':'+'}${Math.abs(ahorroEn).toFixed(2)} €</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Costes no incluidos -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-base text-amber-600 mt-0.5 shrink-0">info</span>
+          <div>
+            <p class="text-xs font-bold text-amber-800 mb-1">Costes no incluidos en esta comparativa</p>
+            <p class="text-xs text-amber-700">${tabActual==='gas'
+              ?'Impuesto sobre hidrocarburos, alquiler del contador, derechos GTS, cuota CNMC e IVA (21%). Estos costes son iguales en ambas tarifas.'
+              :'Impuesto eléctrico (5,11%), alquiler de equipos de medida e IVA (21%). Estos costes son iguales en ambas tarifas.'}</p>
+          </div>
         </div>
       </div>
     </div>`;
@@ -1518,7 +1885,7 @@ function mostrarHistorico(){
   const container=document.getElementById('historico-list');
   const section=document.getElementById('historico');
   if(hist.length===0){
-    container.innerHTML='<div class="px-4 py-6 text-center text-sm text-slate-400">No hay calculos guardados</div>';
+    container.innerHTML='<div class="px-4 py-6 text-center text-sm text-slate-400">No hay cálculos guardados</div>';
     section.classList.add('hidden');
     return;
   }
@@ -1529,15 +1896,15 @@ function mostrarHistorico(){
     const item=document.createElement('div');
     item.className='flex items-center gap-3 px-4 py-3';
     item.innerHTML=`
-      <div class="size-9 rounded-xl ${isPos?'bg-primary/10':'bg-red-50'} flex items-center justify-center shrink-0">
-        <span class="material-symbols-outlined text-base ${isPos?'text-primary':'text-red-500'}">${isPos?'trending_down':'trending_up'}</span>
+      <div class="size-9 rounded-xl ${isPos?'bg-blue-50':'bg-amber-50'} flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-base ${isPos?'text-blue-600':'text-amber-600'}">${isPos?'trending_down':'trending_up'}</span>
       </div>
       <div class="flex-1 min-w-0">
         <p class="font-semibold text-sm truncate">${o.nombre}</p>
         <p class="text-[11px] text-slate-400">${o.fecha} · ${o.total.toFixed(2)} €</p>
       </div>
       <div class="text-right shrink-0">
-        <p class="text-sm font-bold ${isPos?'text-primary':'text-red-500'}">${isPos?'-':'+'} ${Math.abs(o.ahorro).toFixed(2)} €</p>
+        <p class="text-sm font-bold ${isPos?'text-blue-600':'text-amber-600'}">${isPos?'-':'+'} ${Math.abs(o.ahorro).toFixed(2)} €</p>
       </div>
       <button onclick="eliminarOferta(${o.id})" class="size-8 flex items-center justify-center rounded-full bg-slate-100 active:scale-95 shrink-0">
         <span class="material-symbols-outlined text-base text-slate-400">delete</span>
@@ -1599,11 +1966,14 @@ function cerrarModalComentarios(){
 }
 
 function enviarComentarioGoogle(){
+  // Honeypot anti-spam check
+  const hp=document.getElementById('website-hp');
+  if(hp&&hp.value){mostrarToast('Comentario enviado. Gracias!');cerrarModalComentarios();return;}
   const nombre=document.getElementById('nombre-comentario').value||'Anonimo';
   const email=document.getElementById('email-comentario').value||'No proporcionado';
   const mensaje=document.getElementById('mensaje-comentario').value;
   const esError=document.getElementById('tipo-error').checked?'SI':'NO';
-  if(!mensaje.trim()){mostrarToast('El mensaje es obligatorio','error');return;}
+  if(!mensaje.trim()||mensaje.trim().length<10){mostrarToast('El mensaje debe tener al menos 10 caracteres','error');return;}
   const googleFormURL='https://docs.google.com/forms/d/e/REEMPLAZA_CON_TU_FORM_ID/formResponse';
   const data=new FormData();
   data.append('entry.XXXXXXXXX',nombre);
