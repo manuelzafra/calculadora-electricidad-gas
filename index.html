@@ -1095,11 +1095,9 @@ const consumosGasDefault={meses:['Febrero','Marzo','Abril','Mayo','Junio','Julio
 const diasMes=[31,28,31,30,31,30,31,31,30,31,30,31];
 
 // T3 6.1TD: Month groups by zone — A=P1/P2, B=P2/P3, B1=P3/P4, C=P4/P5
-// ===== BLOG CMS: artículos + Google Sheets =====
-// Config: pon tu Google Sheet ID aquí para editar artículos desde Sheets
-// La hoja debe tener columnas: categoria | titulo | contenido | abierto
-// Publicar: Archivo → Compartir → Publicar en la web → Hoja "articulos" → CSV
-const BLOG_SHEET_ID = '1D_LL5WWfkM_KMmkqOizcnJmkHa71T6imIwuzZWSsnzc';
+// ===== BLOG: artículos editoriales =====
+// Fuente de verdad: Notion DB "Comparador Tarifas - Blog"
+// Para sincronizar: pide a Claude "sincroniza artículos desde Notion"
 
 const BLOG_CATEGORIES = [
   { id:'sistema-electrico', title:'El sistema eléctrico español', icon:'bolt', color:'text-amber-500' },
@@ -1152,27 +1150,6 @@ const BLOG_ARTICLES = [
 ];
 
 // Simple markdown → HTML converter for Google Sheets content
-function sheetMdToHtml(md){
-  if(!md) return '';
-  return md
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .split(/\n\n+/).map(block=>{
-      block=block.trim();
-      if(!block) return '';
-      // Bullet list
-      if(/^- /.test(block)){
-        const items=block.split(/\n/).map(l=>l.replace(/^- /,'').trim()).filter(Boolean);
-        return '<ul class="list-disc list-inside space-y-1 pl-2">'+items.map(i=>'<li>'+i+'</li>').join('')+'</ul>';
-      }
-      // Numbered list
-      if(/^\d+\. /.test(block)){
-        const items=block.split(/\n/).map(l=>l.replace(/^\d+\. /,'').trim()).filter(Boolean);
-        return '<ol class="list-decimal list-inside space-y-1 pl-2">'+items.map(i=>'<li>'+i+'</li>').join('')+'</ol>';
-      }
-      return '<p>'+block.replace(/\n/g,' ')+'</p>';
-    }).join('');
-}
-
 function renderBlogArticles(articles){
   const container=document.getElementById('blog-articles-container');
   if(!container) return;
@@ -1197,34 +1174,6 @@ function renderBlogArticles(articles){
     card.innerHTML=html;
     container.appendChild(card);
   });
-}
-
-// Fetch from Google Sheet (published as web CSV) and override articles
-async function fetchBlogFromSheet(){
-  if(!BLOG_SHEET_ID) return false;
-  try{
-    const url=`https://docs.google.com/spreadsheets/d/${BLOG_SHEET_ID}/gviz/tq?tqx=out:json`;
-    const res=await fetch(url);
-    const text=await res.text();
-    // Strip Google callback wrapper: google.visualization.Query.setResponse({...})
-    const json=JSON.parse(text.match(/\{.*\}/s)[0]);
-    const rows=json.table.rows;
-    const articles=rows.map(r=>{
-      const c=r.c; // columns: 0=categoria, 1=titulo, 2=contenido, 3=abierto
-      if(!c[0]||!c[1]) return null;
-      return {
-        cat:(c[0].v||'').trim(),
-        title:(c[1].v||'').trim(),
-        html: (c[2]&&c[2].v||'').trim().startsWith('<') ? c[2].v.trim() : sheetMdToHtml(c[2]&&c[2].v||''),
-        open: c[3]&&(c[3].v===true||c[3].v==='TRUE'||c[3].v==='true'||c[3].v==='SI'||c[3].v==='1')
-      };
-    }).filter(Boolean);
-    if(articles.length>0){
-      renderBlogArticles(articles);
-      return true;
-    }
-  }catch(e){ console.warn('Blog: Google Sheet no disponible, usando artículos locales',e); }
-  return false;
 }
 
 // Hours 0-7 always P6. Weekends/holidays always P6.
@@ -1270,7 +1219,6 @@ window.addEventListener('DOMContentLoaded', () => {
   restaurarLocks();
   // Blog articles: render local data immediately, then try Google Sheet override
   renderBlogArticles(BLOG_ARTICLES);
-  fetchBlogFromSheet().then(ok=>{if(ok) console.log('Blog actualizado desde Google Sheet');});
 });
 
 // =====================
